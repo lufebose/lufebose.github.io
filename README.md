@@ -11,7 +11,7 @@ Nationality: Costa Rican
 Languages: Spanish (Native), English (C1), Portuguese (C1), French (C1)
 
 Location: Lisbon, Portugal
-
+ 
 (Residence Permit with permission to work)
 
 
