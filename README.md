@@ -15,7 +15,7 @@ Location: Lisbon, Portugal
 (Residence Permit with permission to work)
 
 
-##Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study
+##Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (Co-Authored with Miguel Oliveira and Tiago Campos)
 
 i) I utilized R and Gretl for the purpose of employing a debt equation specification and a VAR(2) model. This allowed me to both predict and compute the Impulse Response Functions (IRFs) concerning Portuguese debt in relation to key variables, such as: debt interest rate, GDP growth, inflation, and primary surplus.
 
@@ -24,6 +24,9 @@ ii) With both the models, it was demonstrated that the Portuguese debt is sustai
 ![forecasts_VAR2](https://github.com/lufebose/lufebose.github.io/assets/109878424/c55dd2ba-32b0-402a-aa82-0f3d40dfbc24)
 
 ![irf4](https://github.com/lufebose/lufebose.github.io/assets/109878424/82c5d9ea-597c-45ba-8b50-072bc0107a27)
+
+![irf2](https://github.com/lufebose/lufebose.github.io/assets/109878424/e0f84837-b8d9-48f3-97d6-4d67d7229047)
+
 
 Full Document: 
 [Public Debt GPEARI Report - Final.pdf](https://github.com/lufebose/lufebose.github.io/files/12427787/Public.Debt.GPEARI.Report.-.Final.pdf)
