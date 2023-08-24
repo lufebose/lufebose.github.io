@@ -14,7 +14,6 @@ Location: Lisbon, Portugal
  
 (Residence Permit with permission to work)
 
-#
 
 ## Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (Co-Authored with Miguel Oliveira and Tiago Campos)
 
@@ -31,7 +30,6 @@ ii) With both the models, it was demonstrated that the Portuguese debt is sustai
 Full Document:
 [Public Debt GPEARI Report - Final.pdf](https://github.com/lufebose/lufebose.github.io/files/12427787/Public.Debt.GPEARI.Report.-.Final.pdf)
 
-#
 
 ## Project 2: Forecasting the Costa Rican Colon (CRC) Exchange Rate using the Prophet Package and time series filtering using mFilter
 
@@ -51,7 +49,6 @@ The code can be accessed here in this .txt file:
 
 Also available per request: felipebose18[at]gmail.com
 
-#
 
 ## Project 3: Analyzing Bitcoin (BTC) price while inflation expectations are high 
 
