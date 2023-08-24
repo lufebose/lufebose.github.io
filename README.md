@@ -58,11 +58,11 @@ ii. Obtained other time series such as University of Michigan monthly Inflation 
 
 iii. Analyzed the foreign exchange market by extracting information in an automated way using the Tidyquant Package in R
 
-![BTC Price](https://github.com/lufebose/R-Data-Science-Portfolio/blob/fc494e85d7ebfeb2f161d94a9dcdcd467eea1696/images/btc_price.png)
+![btc_price](https://github.com/lufebose/lufebose.github.io/assets/109878424/c6db37b3-5885-44b4-bde3-e3d0d4b47229)
 
-![Inflation Expectations](https://github.com/lufebose/R-Data-Science-Portfolio/blob/82a8322c8d0a54b570c6162aa533cdb90ab65caa/images/infl_exp.png)
+![infl_exp](https://github.com/lufebose/lufebose.github.io/assets/109878424/921acfbe-23ea-40c3-8697-f30c43a2bbe1)
 
-![USD](https://github.com/lufebose/R-Data-Science-Portfolio/blob/6a924f085f391ce8e9675cb8397ee9698b6f4958/images/dollar2022.png)
+![dollar2022](https://github.com/lufebose/lufebose.github.io/assets/109878424/ea7e7d90-0250-489f-a1fb-0d6563cf518f)
 
 The code can be accessed here in this .txt file: 
 
