@@ -28,7 +28,7 @@ ii) With both the models, it was demonstrated that the Portuguese debt is sustai
 ![irf2](https://github.com/lufebose/lufebose.github.io/assets/109878424/a1e27894-b9a8-4851-b314-f4d814e7804e)
 
 Full Document:
-[Public Debt GPEARI Report - Final.pdf](https://github.com/lufebose/lufebose.github.io/files/12427787/Public.Debt.GPEARI.Report.-.Final.pdf)
+[Public Debt GPEARI Report](https://github.com/lufebose/lufebose.github.io/files/12427787/Public.Debt.GPEARI.Report.-.Final.pdf)
 
 
 ## Project 2: Forecasting the Costa Rican Colon (CRC) Exchange Rate using the Prophet Package and time series filtering using mFilter
@@ -45,7 +45,7 @@ ii) With Prophet the seasonality of the ER was analyzed thoroughly. It was obser
 
 The code can be accessed here in this .txt file:
 
-[Copy tc_forecast_prophet.R.txt](https://github.com/lufebose/lufebose.github.io/files/12428258/Copy.tc_forecast_prophet.R.txt) 
+[ER Forecast Code (.txt)](https://github.com/lufebose/lufebose.github.io/files/12428258/Copy.tc_forecast_prophet.R.txt) 
 
 Also available per request: felipebose18[at]gmail.com
 
@@ -58,15 +58,15 @@ ii. Obtained other time series such as University of Michigan monthly Inflation 
 
 iii. Analyzed the foreign exchange market by extracting information in an automated way using the Tidyquant Package in R
 
-![](https://github.com/lufebose/R-Data-Science-Portfolio/blob/fc494e85d7ebfeb2f161d94a9dcdcd467eea1696/images/btc_price.png)
+![BTC Price](https://github.com/lufebose/R-Data-Science-Portfolio/blob/fc494e85d7ebfeb2f161d94a9dcdcd467eea1696/images/btc_price.png)
 
-![](https://github.com/lufebose/R-Data-Science-Portfolio/blob/82a8322c8d0a54b570c6162aa533cdb90ab65caa/images/infl_exp.png)
+![Inflation Expectations](https://github.com/lufebose/R-Data-Science-Portfolio/blob/82a8322c8d0a54b570c6162aa533cdb90ab65caa/images/infl_exp.png)
 
-![](https://github.com/lufebose/R-Data-Science-Portfolio/blob/6a924f085f391ce8e9675cb8397ee9698b6f4958/images/dollar2022.png)
+![USD](https://github.com/lufebose/R-Data-Science-Portfolio/blob/6a924f085f391ce8e9675cb8397ee9698b6f4958/images/dollar2022.png)
 
 The code can be accessed here in this .txt file: 
 
-[Copy Bitcoin Price Analysis and forecast.R.txt](https://github.com/lufebose/lufebose.github.io/files/12428320/Copy.Bitcoin.Price.Analysis.and.forecast.R.txt) 
+[Bitcoin Code (.txt)](https://github.com/lufebose/lufebose.github.io/files/12428320/Copy.Bitcoin.Price.Analysis.and.forecast.R.txt) 
 
 Also available per request: felipebose18[at]gmail.com
 
