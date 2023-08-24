@@ -15,7 +15,9 @@ Location: Lisbon, Portugal
 (Residence + Work Permit) 
 
 
-## Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (Document Co-Authored with Miguel Oliveira and Tiago Campos / Code completely written by myself)
+## Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study 
+
+(Document Co-Authored with Miguel Oliveira and Tiago Campos / Code completely written by myself)
 
 i) I utilized R and Gretl for the purpose of employing a debt equation specification and a VAR(2) model. This allowed me to both predict and compute the Impulse Response Functions (IRFs) concerning Portuguese debt in relation to key variables, such as: debt interest rate, GDP growth, inflation, and primary surplus.
 
