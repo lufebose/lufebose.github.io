@@ -12,7 +12,7 @@ Languages: Spanish (Native), English (C1), Portuguese (C1), French (C1)
 
 Location: Lisbon, Portugal
  
-(Residence Permit with permission to work)
+(Residence + Work Permit) 
 
 
 ## Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (Co-Authored with Miguel Oliveira and Tiago Campos)
