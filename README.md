@@ -25,8 +25,9 @@ ii) With both the models, it was demonstrated that the Portuguese debt is sustai
 
 ![irf4](https://github.com/lufebose/lufebose.github.io/assets/109878424/82c5d9ea-597c-45ba-8b50-072bc0107a27)
 
+![irf2](https://github.com/lufebose/lufebose.github.io/assets/109878424/a1e27894-b9a8-4851-b314-f4d814e7804e)
 
-Full Document: 
+Full Document:
 [Public Debt GPEARI Report - Final.pdf](https://github.com/lufebose/lufebose.github.io/files/12427787/Public.Debt.GPEARI.Report.-.Final.pdf)
 
 
