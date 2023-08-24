@@ -15,7 +15,7 @@ Location: Lisbon, Portugal
 (Residence Permit with permission to work)
 
 
-##Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (Co-Authored with Miguel Oliveira and Tiago Campos)
+## Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (Co-Authored with Miguel Oliveira and Tiago Campos)
 
 i) I utilized R and Gretl for the purpose of employing a debt equation specification and a VAR(2) model. This allowed me to both predict and compute the Impulse Response Functions (IRFs) concerning Portuguese debt in relation to key variables, such as: debt interest rate, GDP growth, inflation, and primary surplus.
 
@@ -32,7 +32,20 @@ Full Document:
 
 
 
-##Project 2: 
+## Project 2: Forecasting the Costa Rican Colon (CRC) Exchange Rate using the Prophet Package and time series filtering using mFilter
+
+i) Used the Prophet package in R to forecast the CRC/USD exchange rate (ER). Prophet proved to be a good package to forecast these kinds of series because of non-linearity and high seasonality
+
+ii) With Prophet the seasonality of the ER was analyzed thoroughly. It was observed that the days with the highest seasonality are from Wednesday to Saturday whereas the months with the highest seasonality are June and November
+
+![forecasting365](https://github.com/lufebose/lufebose.github.io/assets/109878424/990573c6-8ae5-4df5-bd74-75e2b4d34f36)
+
+![trend-weekly-yearly](https://github.com/lufebose/lufebose.github.io/assets/109878424/8fa69be7-b44e-4434-8ed1-0f32ab04c898)
+
+![Filtered data](https://github.com/lufebose/lufebose.github.io/assets/109878424/93812911-f126-4358-9a28-84522d964495)
+
+Code can be sent by request: felipebose18[at]gmail.com
+
 
 ##Project 3:
 
