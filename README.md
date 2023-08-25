@@ -16,6 +16,22 @@ Location: Lisbon, Portugal
 
 ## Project 1: Dollarization and the Exchange Rate Pass-Through: Is there a link? (01/07/2023 - Ongoing)
 
+Master of Science Thesis
+
+i) The objective of this project is to understand if there is a link between the level of dollarization (deposit dollarization) in a country and the exchange rate pass-through to inflation. 
+
+ii) Using R, dplyr, tidyquant, ggplot2, tidyverse, magrittr, writexl and WDI among other packages, I was able to construct a database using Levy-Yeyati 2021 data for deposit dollarization and the World Development Index (WDI) data from the World Bank. Also, I was able to come up with several interesting stylized facts. 
+
+
+![Change_dollarization](https://github.com/lufebose/lufebose.github.io/assets/109878424/a16b0abd-f614-4089-8ab5-571afe61ae0e)
+
+![dollarization_by_decade_viridis](https://github.com/lufebose/lufebose.github.io/assets/109878424/9be94a0a-d9cc-4cf9-a2f5-6702b53a52cf)
+
+![er_pass_through](https://github.com/lufebose/lufebose.github.io/assets/109878424/7443e7cb-d843-45ff-9fcb-a0749ceacca9)
+
+![plot_planel_high_change](https://github.com/lufebose/lufebose.github.io/assets/109878424/7a469d9f-9a05-4c2d-9ba5-51fb06fade7d)
+
+
 
 
 
