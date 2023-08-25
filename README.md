@@ -14,8 +14,12 @@ Location: Lisbon, Portugal
  
 (Residence + Work Permit) 
 
+## Project 1: Dollarization and the Exchange Rate Pass-Through: Is there a link? (01/07/2023 - Ongoing)
 
-## Project 1: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (01/02/2023-02/06/2023)
+
+
+
+## Project 2: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (01/02/2023-02/06/2023)
 
 (Document Co-Authored with Miguel Oliveira and Tiago Campos / Code completely written by myself)
 
@@ -37,7 +41,7 @@ Full Document:
 [Public Debt GPEARI Report](https://github.com/lufebose/lufebose.github.io/files/12427787/Public.Debt.GPEARI.Report.-.Final.pdf)
 
 
-## Project 2: Forecasting the Costa Rican Colon (CRC) Exchange Rate using the Prophet Package and time series filtering using mFilter (21/06/2022 - 28/06/2022)
+## Project 3: Forecasting the Costa Rican Colon (CRC) Exchange Rate using the Prophet Package and time series filtering using mFilter (21/06/2022 - 28/06/2022)
 
 i) Used the Prophet package in R to forecast the CRC/USD exchange rate (ER). Prophet proved to be a good package to forecast these kinds of series because of non-linearity and high seasonality
 
@@ -56,7 +60,7 @@ The code can be accessed here in this .txt file:
 Also available per request: felipebose18[at]gmail.com
 
 
-## Project 3: Analyzing Bitcoin (BTC) price while inflation expectations are high (06/07/2022 - 12/07/2022)
+## Project 4: Analyzing Bitcoin (BTC) price while inflation expectations are high (06/07/2022 - 12/07/2022)
 
 i. Used tidyquant, tidyverse, timetk, lubridate, dplyr ggplot2 to extract, analyze and visualize how BTC behaved during 2022 when it went below $20,000 
 
