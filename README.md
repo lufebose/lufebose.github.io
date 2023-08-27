@@ -26,7 +26,7 @@ Change in Dollarization in the World: 2000 - 2018 (R)
 ![Change_dollarization](https://github.com/lufebose/lufebose.github.io/assets/109878424/a16b0abd-f614-4089-8ab5-571afe61ae0e)
 Dollarization by decade (R): 
 ![dollarization_by_decade_viridis](https://github.com/lufebose/lufebose.github.io/assets/109878424/9be94a0a-d9cc-4cf9-a2f5-6702b53a52cf)
-Exchange Rate Pass-through running a simple OLS regression and plotting in a histogram the coefficients of the slopes for each country (R):  
+Exchange Rate Pass-through running a simple OLS regression $\Delta \pi = \beta_0 + \beta_1 \Delta e + \epsilon$ and plotting in a histogram the coefficients of the slopes for each country (R):  
 ![er_pass_through](https://github.com/lufebose/lufebose.github.io/assets/109878424/7443e7cb-d843-45ff-9fcb-a0749ceacca9)
 Countries with the highest absolute change in dollarization (R):
 ![plot_planel_high_change](https://github.com/lufebose/lufebose.github.io/assets/109878424/7a469d9f-9a05-4c2d-9ba5-51fb06fade7d)
