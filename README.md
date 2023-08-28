@@ -32,7 +32,7 @@ Dollarization by decade (R):
 
 Exchange Rate Pass-through running a simple OLS regression 
 
-$\pi = \beta_0 + \beta_1 \Delta e + \epsilon$ 
+<img width="154" alt="image" src="https://github.com/lufebose/lufebose.github.io/assets/109878424/3d413647-dac1-401c-9ac0-8c14c93e811d">
 
 and plotting in a histogram the coefficients of the slopes for each country (R):  
 
