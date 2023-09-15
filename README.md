@@ -1,7 +1,5 @@
 # Welcome to my Portfolio!
 
-![image](https://github.com/lufebose/lufebose.github.io/assets/109878424/32b513dd-6f1b-4e17-bfd5-8f977d5caedb)
-
 Economist graduated from the University of Costa Rica in February 2020.
 
 Currently MSc in Economics Candidate at Nova School of Business and Economics and former researcher/lecturer for Nova Economics Club (NEC) for 2 semesters during my Master's degree.
