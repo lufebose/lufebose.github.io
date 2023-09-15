@@ -1,6 +1,6 @@
 # Welcome to my Portfolio!
 
-![Foto Profesional 2023 de tamaño mediano](https://github.com/lufebose/lufebose.github.io/assets/109878424/e48e685a-2844-4b31-9c7d-5ac8779a9549)
+![image](https://github.com/lufebose/lufebose.github.io/assets/109878424/f90698a2-0b31-4b18-acd4-0e8182585cfb)
 
 Economist graduated from the University of Costa Rica in February 2020.
 
