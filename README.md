@@ -1,8 +1,8 @@
 # Welcome to my Portfolio!
 
-Economist graduated from the University of Costa Rica in February 2020.
+Economist graduated from the University of Costa Rica in February 2020 and Nova SBE in 2023 (Master of Science in Economics).
 
-Currently MSc in Economics Candidate at Nova School of Business and Economics and former researcher/lecturer for Nova Economics Club (NEC) for 2 semesters during my Master's degree.
+Working as Financial Data Analyst at Bentley Systems (NYSE: BSY). 
 
 Interested in Data Analytics, Macroeconomic Policy, Public Economics and International Economics.
 
