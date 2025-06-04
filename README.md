@@ -3,7 +3,7 @@
 Economist graduated from the University of Costa Rica in February 2020 and Nova SBE in 2023 (Master of Science in Economics).
 
 Working as Financial Data Analyst at Bentley Systems (NYSE: BSY). 
-
+ 
 Interested in Data Analytics, Macroeconomic Policy and International Economics.
 
 Nationality: Costa Rican
