@@ -4,7 +4,7 @@ Economist graduated from the University of Costa Rica in February 2020 and Nova 
 
 Working as Financial Data Analyst at Bentley Systems (NYSE: BSY). 
 
-Interested in Data Analytics, Macroeconomic Policy, Public Economics and International Economics.
+Interested in Data Analytics, Macroeconomic Policy and International Economics.
 
 Nationality: Costa Rican
 
@@ -12,8 +12,6 @@ Languages: Spanish (Native), English (C1), Portuguese (C1), French (C1)
 
 Location: Lisbon, Portugal
  
-(Residence + Work Permit) 
-
 ## Project 1: Dollarization and the Exchange Rate Pass-Through: Is there a link? (01/07/2023 - Ongoing)
 
 Master of Science Thesis
