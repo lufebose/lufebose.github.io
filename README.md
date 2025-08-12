@@ -12,7 +12,7 @@ Languages: Spanish (Native), English (C2), Portuguese (C2), French (C1), Polish 
 
 Location: Lisbon, Portugal
  
-## Project 1: Dollarization and the Exchange Rate Pass-Through: Is there a link? (01/07/2023 - Ongoing)
+## Project 1: Dollarization and the Exchange Rate Pass-Through: Is there a link? (01/07/2023 - 14/01/2024)
 
 Master of Science Thesis
 
