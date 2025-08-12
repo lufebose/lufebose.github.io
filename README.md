@@ -8,7 +8,7 @@ Interested in Data Analytics, Macroeconomic Policy and International Economics.
 
 Nationality: Costa Rican
 
-Languages: Spanish (Native), English (C1), Portuguese (C1), French (C1)
+Languages: Spanish (Native), English (C2), Portuguese (C2), French (C1), Polish (A1/Learning)
 
 Location: Lisbon, Portugal
  
