@@ -18,7 +18,6 @@ The data is extracted from the internet using RStudio. RStudio's quantmod and lu
 
 Bookmarks and filters were added to make the UI more appealing to the end user. 
 
-![WhatsApp Image 2025-08-27 at 12 01 30](https://github.com/user-attachments/assets/4a6e18a0-7470-4386-b4a1-041e8635d0de)
 
 ![WhatsApp Image 2025-08-27 at 12 02 00](https://github.com/user-attachments/assets/78d47868-2d1e-4ab2-af9b-c10b58a35832)
 
