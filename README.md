@@ -1,18 +1,33 @@
 # Welcome to my Portfolio!
 
-Economist graduated from the University of Costa Rica in February 2020 and Nova SBE in 2023 (Master of Science in Economics).
+Economist graduated from the University of Costa Rica in February 2020 (BSc) and Nova SBE in 2023 (MSc).
 
-Working as Financial Data Analyst at Bentley Systems (NYSE: BSY). 
+Working as Financial Data Analyst 
  
-Interested in Data Analytics, Macroeconomic Policy and International Economics.
+Interested in Data Analytics, Forecasting, ETL Processes and International Economics.
 
 Nationality: Costa Rican
 
 Languages: Spanish (Native), English (C2), Portuguese (C2), French (C1), Polish (A1/Learning)
 
-Location: Lisbon, Portugal
+## Project 1: BSY Equity and Returns Dashboard (*)
+
+The initial idea was to build a dashboard with data that updates automatically from Yahoo Finance or Investing.com 
+
+The data is extracted from the internet using RStudio. RStudio's quantmod and lubridate packages were essential to connect in real time the data and update it with one click. 
+
+Bookmarks and filters were added to make the UI more appealing to the end user. 
+
+![WhatsApp Image 2025-08-27 at 12 01 30](https://github.com/user-attachments/assets/4a6e18a0-7470-4386-b4a1-041e8635d0de)
+
+![WhatsApp Image 2025-08-27 at 12 02 00](https://github.com/user-attachments/assets/78d47868-2d1e-4ab2-af9b-c10b58a35832)
+
+![WhatsApp Image 2025-08-27 at 12 05 25](https://github.com/user-attachments/assets/204f3953-229a-4208-b102-8203f3c00a19)
+
+(*): This dashboard was created with publicly available data. 
+
  
-## Project 1: Dollarization and the Exchange Rate Pass-Through: Is there a link? (01/07/2023 - 14/01/2024)
+## Project 2: Dollarization and the Exchange Rate Pass-Through: Is there a link? (01/07/2023 - 14/01/2024)
 
 Master of Science Thesis
 
@@ -44,7 +59,7 @@ Countries with the highest absolute change in dollarization (R):
 
 
 
-## Project 2: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (01/02/2023-02/06/2023)
+## Project 3: The impact of interest rate changes and inflationary pressures on sovereign debt dynamics: Portuguese Case Study (01/02/2023-02/06/2023)
 
 (Document Co-Authored with Miguel Oliveira and Tiago Campos / Code completely written by myself)
 
@@ -66,7 +81,7 @@ Full Document:
 [Public Debt GPEARI Report](https://github.com/lufebose/lufebose.github.io/files/12427787/Public.Debt.GPEARI.Report.-.Final.pdf)
 
 
-## Project 3: Forecasting the Costa Rican Colon (CRC) Exchange Rate using the Prophet Package and time series filtering using mFilter (21/06/2022 - 28/06/2022)
+## Project 4: Forecasting the Costa Rican Colon (CRC) Exchange Rate using the Prophet Package and time series filtering using mFilter (21/06/2022 - 28/06/2022)
 
 i) Used the Prophet package in R to forecast the CRC/USD exchange rate (ER). Prophet proved to be a good package to forecast these kinds of series because of non-linearity and high seasonality
 
@@ -85,7 +100,7 @@ The code can be accessed here in this .txt file:
 Also available per request: felipebose18[at]gmail.com
 
 
-## Project 4: Analyzing Bitcoin (BTC) price while inflation expectations are high (06/07/2022 - 12/07/2022)
+## Project 5: Analyzing Bitcoin (BTC) price while inflation expectations are high (06/07/2022 - 12/07/2022)
 
 i. Used tidyquant, tidyverse, timetk, lubridate, dplyr ggplot2 to extract, analyze and visualize how BTC behaved during 2022 when it went below $20,000 
 
