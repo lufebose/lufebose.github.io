@@ -6,18 +6,33 @@ Working as Financial Data Analyst
  
 Interested in Data Analytics, Forecasting, ETL Processes and International Economics.
 
-Nationality: Costa Rican
-
 Languages: Spanish (Native), English (C2), Portuguese (C2), French (C1), Polish (A1/Learning)
 
 ## Project 1: BSY Equity and Returns Dashboard (*)
 
 The initial idea was to build a dashboard with data that updates automatically from Yahoo Finance or Investing.com 
 
-The data is extracted from the internet using RStudio. RStudio's quantmod and lubridate packages were essential to connect in real time the data and update it with one click. 
+After deciding on which measures and visuals that we wanted to incorporate, we proceeded to connect the data to Power BI using RStudio. In Yahoo Finance, was not need for a API 
+
+      library(tidyverse)
+      library(magrittr)
+      library(quantmod)
+      getSymbols("BSY")
+      BSY_data <- data.frame(Date = index(BSY), coredata(BSY))
+
+The data is extracted from the internet using RStudio. RStudio's quantmod, magrittr tidiverse and lubridate packages were essential to connect in real time the data and update it with one click. 
+
+Also, data from FRED can be extracted if needed with the following code: 
+
+     library(quantmod)
+     library(tidyverse)
+     start <- as.Date("2020-01-01")
+     end <- Sys.Date()  
+     getSymbols("GDPC1", src = "FRED", from = start, to = end)
+     GDP_data <- data.frame(Date = index(GDPC1), coredata(GDPC1))
+
 
 Bookmarks and filters were added to make the UI more appealing to the end user. 
-
 
 ![WhatsApp Image 2025-08-27 at 12 02 00](https://github.com/user-attachments/assets/78d47868-2d1e-4ab2-af9b-c10b58a35832)
 
