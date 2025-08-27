@@ -34,7 +34,8 @@ Also, data from FRED can be extracted if needed with the following code:
 
 Bookmarks and filters were added to make the UI more appealing to the end user. 
 
-![WhatsApp Image 2025-08-27 at 12 02 00](https://github.com/user-attachments/assets/78d47868-2d1e-4ab2-af9b-c10b58a35832)
+![WhatsApp Image 2025-08-27 at 13 57 38](https://github.com/user-attachments/assets/e3513acc-9979-496f-941c-95c8fdbf02ec)
+
 
 ![WhatsApp Image 2025-08-27 at 12 05 25](https://github.com/user-attachments/assets/204f3953-229a-4208-b102-8203f3c00a19)
 
