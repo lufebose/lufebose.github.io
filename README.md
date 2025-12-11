@@ -2,11 +2,35 @@
 
 Economist graduated from the University of Costa Rica in February 2020 (BSc) and Nova SBE in 2023 (MSc).
 
-Working as Financial Data Analyst 
+Currently working as a Data Analyst 
  
-Interested in Data Analytics, Forecasting, ETL Processes and International Economics.
+2+ years of international experience as a data analyst. I specialize in Extract-Transform-Load (ETL) processes, creating data pipelines and report/dashboard production. 
+Working experience with Snowflake, Access, RStudio, SAP, Power BI, Alteryx, Excel and Tableau. 
 
-Languages: Spanish (Native), English (C2), Portuguese (C2), French (C1), Polish (A1/Learning)
+Languages: Spanish (Native), English (C2), Portuguese (C2), French (C1), Polish (A2/Learning)
+
+## Most recent project: Seasonality in the CRC Exchange Rate. 
+
+Due to the fact that the Costa Rican Colon (CRC) had been several days below the 500 colones per dollar, I extracted the data for the last 15 years from the BCCR (Central Bank of Costa Rica) to decompose the time series. Using prophet, it was possible to extract the trend and weekly/yearly seasonality. 
+
+I used the following RStudio packages in this analysis: 
+
+library(mFilter)
+library(readxl)
+library(dplyr)
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+library(prophet)
+library(lubridate)
+library(zoo)  
+library(forecast)
+
+<img width="1547" height="1068" alt="image" src="https://github.com/user-attachments/assets/1142ccac-4d21-4b79-a5d7-5564c71338b2" />
+
+
+<img width="1547" height="1068" alt="image" src="https://github.com/user-attachments/assets/a45d58cc-b56a-4853-a378-84b928be8642" />
+
 
 ## Project 1: BSY Equity and Returns Dashboard (*)
 
