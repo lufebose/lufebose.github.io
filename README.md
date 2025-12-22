@@ -15,21 +15,21 @@ Due to the fact that the Costa Rican Colon (CRC) had been several days below the
 
 I used the following RStudio packages in this analysis: 
 
-library(mFilter)
-library(readxl)
-library(dplyr)
-library(tidyverse)
-library(magrittr)
-library(ggplot2)
-library(prophet)
-library(lubridate)
-library(zoo)  
-library(forecast)
+      library(mFilter)
+      library(readxl)
+      library(dplyr)
+      library(tidyverse)
+      library(magrittr)
+      library(ggplot2)
+      library(prophet)
+      library(lubridate)
+      library(zoo)  
+      library(forecast)
 
-<img width="1547" height="1068" alt="image" src="https://github.com/user-attachments/assets/1142ccac-4d21-4b79-a5d7-5564c71338b2" />
+<img width="1300" height="800" alt="image" src="https://github.com/user-attachments/assets/1142ccac-4d21-4b79-a5d7-5564c71338b2" />
 
 
-<img width="1547" height="1068" alt="image" src="https://github.com/user-attachments/assets/a45d58cc-b56a-4853-a378-84b928be8642" />
+<img width="1300" height="800" alt="image" src="https://github.com/user-attachments/assets/a45d58cc-b56a-4853-a378-84b928be8642" />
 
 
 ## Project 1: BSY Equity and Returns Dashboard (*)
