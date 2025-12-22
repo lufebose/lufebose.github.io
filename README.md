@@ -26,10 +26,10 @@ I used the following RStudio packages in this analysis:
       library(zoo)  
       library(forecast)
 
-<img width="1300" height="800" alt="image" src="https://github.com/user-attachments/assets/1142ccac-4d21-4b79-a5d7-5564c71338b2" />
+<img width="1100" height="800" alt="525468711-1142ccac-4d21-4b79-a5d7-5564c71338b2" src="https://github.com/user-attachments/assets/1dacaea8-6fd2-4aab-8912-ddae7cddcd03" />
 
 
-<img width="1300" height="800" alt="image" src="https://github.com/user-attachments/assets/a45d58cc-b56a-4853-a378-84b928be8642" />
+<img width="1100" height="800" alt="estacionalidad" src="https://github.com/user-attachments/assets/a2bcd6e8-a41f-461b-a99f-d2cfc936558d" />
 
 
 ## Project 1: BSY Equity and Returns Dashboard (*)
