@@ -26,10 +26,11 @@ I used the following RStudio packages in this analysis:
       library(zoo)  
       library(forecast)
 
-<img width="1100" height="800" alt="525468711-1142ccac-4d21-4b79-a5d7-5564c71338b2" src="https://github.com/user-attachments/assets/1dacaea8-6fd2-4aab-8912-ddae7cddcd03" />
+<img width="635" height="439" alt="image" src="https://github.com/user-attachments/assets/c5c2bcbe-e48d-44b7-a982-c344c5e3b428" />
 
+Also the different effects of seasonality can be observed here:
 
-<img width="1100" height="800" alt="estacionalidad" src="https://github.com/user-attachments/assets/a2bcd6e8-a41f-461b-a99f-d2cfc936558d" />
+<img width="611" height="420" alt="image" src="https://github.com/user-attachments/assets/a9e8d693-88a5-4404-9930-c33fc5d227f8" />
 
 
 ## Project 1: BSY Equity and Returns Dashboard (*)
