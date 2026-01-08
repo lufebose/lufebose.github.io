@@ -36,7 +36,7 @@ It can be noticed that yearly seasonality peaks up around October-November and t
 
 If we take a look at the trend, it has been decreasing in the past 5 years. Also, after November, it is possible to observe that there is a decrease due to the seasonality effects. 
 
-[txt.file here](/descomposicion_tc_copy.txt)
+[Full code here](/Descomposicion_tc_copy.txt)
 
 ## Project 1: BSY Equity and Returns Dashboard (*)
 
