@@ -1,0 +1,164 @@
+#install.packages("readxl")
+
+#install.packages("mFilter") 
+library(mFilter)
+library(readxl)
+library(dplyr)
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+library(prophet)
+library(lubridate)
+library(zoo)  
+library(forecast)
+
+
+
+
+tc <- read_excel("/Users/felipebolanos/Documents/Proyectos Datos/tc.xlsx", sheet = "Series", range = NULL)
+
+tc <- tc[-(1:3),]
+colnames(tc)[1] <- tc[1,1]
+colnames(tc)[2] <- tc[1,2]
+colnames(tc)[3] <- tc[1,3]
+
+tc <- tc[-1,]
+
+tc$Fecha <- as.numeric(tc$Fecha)
+tc$`Tipo cambio compra` <- as.numeric(tc$`Tipo cambio compra`)
+tc$`Tipo cambio venta` <- as.numeric(tc$`Tipo cambio venta`)
+
+tc$`Fecha` <- as.Date(tc$`Fecha`, origin = "1899-12-30")
+tc$`Fecha` <- format(tc$`Fecha`, "%d/%m/%Y")
+tc$fecha <- as.Date(tc$fecha, format = "%d/%m/%Y")
+
+colnames(tc)[1] <- "fecha"
+colnames(tc)[2] <- "tc_compra"
+colnames(tc)[3] <- "tc_venta"
+
+tc <- tc %>%
+  mutate(tc_average = (tc_compra + tc_venta) / 2)
+
+#Get weekly averages 
+
+tc_weekly <- tc %>%
+  mutate(week = floor_date(fecha, unit = "week")) %>%
+  group_by(week) %>%
+  summarize(tc_compra_avg = mean(tc_compra, na.rm = TRUE),
+            tc_venta_avg  = mean(tc_venta, na.rm = TRUE),
+            tc_average_avg = mean(tc_average, na.rm = TRUE)) %>%
+  ungroup()
+
+ggplot(tc, aes(x = fecha)) +
+  geom_line(aes(y = tc_compra, color = "Compra")) +
+  geom_line(aes(y = tc_venta, color = "Venta")) +
+  labs(
+    title = "Tipo de Cambio Compra y Venta",
+    x = "Fecha",
+    y = "Tipo de Cambio",
+    color = "Legend"
+  ) +
+  theme_minimal()
+
+tc_weekly <- tc %>%
+  mutate(week = floor_date(fecha, unit = "week")) %>%
+  group_by(week) %>%
+  summarize(tc_compra_avg = mean(tc_compra, na.rm = TRUE))
+
+
+######## Prophet (daily) ------
+
+
+df_prophet <- tc %>%
+  select(fecha, tc_compra) %>%  # keep only the relevant columns
+  rename(ds = fecha, y = tc_compra)
+
+# Ensure the date is Date type
+df_prophet$ds <- as.Date(df_prophet$ds, format = "%d/%m/%Y")
+
+m <- prophet(df_prophet)
+
+
+future <- make_future_dataframe(m, periods = 30)  # next 30 days
+forecast <- predict(m, future)
+
+plot(m, forecast)
+
+# Components (trend, weekly, yearly seasonality)
+prophet_plot_components(m, forecast)
+
+
+
+####### Prophet (weekly) ------ 
+
+df_prophet_weekly <- tc_weekly %>%
+  select(week, tc_average_avg) %>%
+  rename(ds = week, y = tc_average_avg)
+
+m_weekly <- prophet(df_prophet_weekly,
+             weekly.seasonality = FALSE,   # weekly seasonality does not exist in weekly data
+             yearly.seasonality = TRUE)    # yearly seasonality still works
+
+future_weekly <- make_future_dataframe(m_weekly, periods = 8, freq = "week")  # forecast 2 months ahead
+
+forecast_weekly <- predict(m_weekly, future_weekly)
+
+# Plot forecast
+plot(m_weekly, forecast_weekly)
+
+
+prophet_plot_components(m_weekly, forecast_weekly)
+
+####### Baxter King ----- 
+
+tc_ts <- ts(tc_weekly$tc_average_avg, 
+            start = c(year(min(tc_weekly$week)), week(min(tc_weekly$week))), 
+            frequency = 52)  # weekly frequency
+
+bk_tc <- bkfilter(tc_ts, pl = 2, pu = 32, nfix = 12)
+
+# Plot decomposition
+plot(bk_tc)
+
+
+
+
+##### Exponential Smoothing ---- 
+
+fit <- ets(tc_ts)
+fc <- forecast(fit, h = 12)
+plot(fc)
+
+##### Random Forest ------ 
+install.packages("randomForest")
+library(randomForest)
+
+tc_ml <- tc_weekly %>%
+  mutate(lag1 = lag(tc_average_avg, 1),
+         lag2 = lag(tc_average_avg, 2), 
+         lag3 = lag(tc_average_avg, 3)) %>%
+  na.omit()
+
+n <- nrow(tc_ml)
+train <- tc_ml[1:(n-12), ]  # all but last 12 rows
+test  <- tc_ml[(n-11):n, ]  # last 12 rows
+
+rf_model <- randomForest(tc_average_avg ~ lag1 + lag2 + lag3, data = train, ntree = 500)
+pred_randomforest <- predict(rf_model, newdata = test)  # should be 12 rows
+
+length(pred_randomforest)
+
+results <- data.frame(
+  week = test$week,
+  actual = test$tc_average_avg,
+  predicted = pred_randomforest
+)
+
+random_forest_forecast <- ggplot(results, aes(x = week)) +
+  geom_line(aes(y = actual, color = "Actual")) +
+  geom_line(aes(y = predicted, color = "Predicted")) +
+  labs(title = "Random Forest Forecast",
+       x = "Week",
+       y = "tc_average") +
+  scale_color_manual(values = c("Actual" = "blue", "Predicted" = "red")) +
+  theme_minimal()
