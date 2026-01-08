@@ -34,7 +34,10 @@ Also the different effects of seasonality can be observed here:
 
 It can be noticed that yearly seasonality peaks up around October-November and then decreases in December and until April which is consistent with what has been occurring in the last few years during these months. It is typical to see an appreciation of the exchange rate and then after January a depreciation as the seasonality effect becomes negative. 
 
-Also, it is important to point out that there is a negative trend in the  
+If we take a look at the trend, it has been decreasing in the past 5 years. Also, after November, it is possible to observe that there is a decrease due to the seasonality effects. 
+
+<img width="1547" height="1068" alt="image" src="https://github.com/user-attachments/assets/a45d58cc-b56a-4853-a378-84b928be8642" />
+
 
 ## Project 1: BSY Equity and Returns Dashboard (*)
 
