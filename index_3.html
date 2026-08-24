@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luis Felipe — Economist &amp; Data Analyst</title>
+<meta name="description" content="Portfolio of Luis Felipe — Economist and Data Analyst specializing in ETL pipelines, time series decomposition and dashboard production.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EEF0EA;
+    --card: #F7F8F3;
+    --ink: #1C2B39;
+    --ink-soft: #52626D;
+    --teal: #2F6F5E;
+    --teal-deep: #234F43;
+    --gold: #B98B2A;
+    --line: #CBD1C4;
+    --line-soft: #DEE2D6;
+    --max: 980px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(28,43,57,0.035) 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(90deg, rgba(28,43,57,0.035) 0 1px, transparent 1px 32px),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+  }
+
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:600; color:var(--ink); margin:0; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  a{ color:var(--teal-deep); text-decoration-color: rgba(47,111,94,0.35); text-underline-offset:3px; }
+  a:hover{ text-decoration-color: var(--teal-deep); }
+
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 28px; }
+
+  /* ---------- MASTHEAD / NAV ---------- */
+  header.masthead{
+    position:sticky; top:0; z-index:50;
+    background:rgba(238,240,234,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .masthead-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:var(--max); margin:0 auto;
+  }
+  .brand{ font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); text-decoration:none; }
+  .brand span{ color:var(--teal); }
+  nav.links{ display:flex; gap:26px; }
+  nav.links a{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-soft); text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;
+  }
+  nav.links a:hover{ color:var(--teal-deep); border-bottom-color:var(--teal-deep); }
+  @media (max-width:640px){ nav.links{ gap:14px; } nav.links a{ font-size:10.5px; } }
+
+  /* ---------- TICKER ---------- */
+  .ticker{
+    overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--line);
+    background:var(--ink); color:var(--paper); padding:7px 0;
+  }
+  .ticker-track{
+    display:inline-flex; gap:36px; animation:scroll 32s linear infinite;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:.08em;
+  }
+  .ticker-track span{ opacity:.85; }
+  .ticker-track span.dot{ color:var(--gold); }
+  @keyframes scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:76px 0 56px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--teal-deep); margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:22px; height:1px; background:var(--gold); display:inline-block; }
+  .hero h1{ font-size:clamp(40px, 7vw, 68px); line-height:1.02; letter-spacing:-.01em; }
+  .hero .role{ font-family:'Fraunces', serif; font-weight:400; font-style:italic; font-size:clamp(18px,2.4vw,22px); color:var(--ink-soft); margin-top:10px; }
+  .hero p.lede{ max-width:56ch; margin-top:22px; font-size:16.5px; color:var(--ink-soft); }
+
+  .hero-grid{ display:grid; grid-template-columns: 1.1fr .9fr; gap:48px; align-items:end; margin-top:20px; }
+  @media (max-width:820px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .chart-card{
+    border:1px solid var(--line); background:var(--card); padding:20px 22px 14px;
+  }
+  .chart-card .cap{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em; color:var(--ink-soft); display:flex; justify-content:space-between; margin-bottom:6px;}
+  .chart-card .cap b{ color:var(--ink); font-weight:500; }
+  #sparkline path.line{
+    fill:none; stroke:var(--teal-deep); stroke-width:2.2;
+    stroke-dasharray:1400; stroke-dashoffset:1400;
+    animation:draw 2.4s ease-out .3s forwards;
+  }
+  #sparkline circle.pt{ fill:var(--gold); animation:fade 1s ease .8s forwards; opacity:0; }
+  #sparkline .grid{ stroke:var(--line-soft); stroke-width:1; }
+  #sparkline .tick{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; fill:var(--ink-soft); }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes fade{ to{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){
+    #sparkline path.line{ animation:none; stroke-dashoffset:0; }
+    #sparkline circle.pt{ animation:none; opacity:1; }
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:64px 0; border-top:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:36px; gap:20px; flex-wrap:wrap; }
+  .section-head .no{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--gold); letter-spacing:.1em; }
+  .section-head h2{ font-size:clamp(26px,3.4vw,34px); }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:52px; }
+  @media (max-width:820px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-grid p{ color:var(--ink-soft); font-size:16px; margin:0 0 16px; }
+  .about-grid p:first-child{ font-size:18px; color:var(--ink); }
+
+  .vitals{ border:1px solid var(--line); background:var(--card); padding:26px; }
+  .vitals dt{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--teal-deep); margin-top:18px; }
+  .vitals dt:first-child{ margin-top:0; }
+  .vitals dd{ margin:5px 0 0; font-size:14.5px; }
+  .pills{ display:flex; flex-wrap:wrap; gap:7px; margin-top:6px; }
+  .pill{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; border:1px solid var(--line);
+    padding:4px 9px; color:var(--ink-soft); background:var(--paper);
+  }
+
+  /* ---------- LANGUAGES ---------- */
+  .lang-row{ display:grid; grid-template-columns:140px 1fr 60px; align-items:center; gap:16px; margin-bottom:16px; }
+  .lang-row .name{ font-size:15px; }
+  .lang-row .level{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); text-align:right; }
+  .bar{ height:6px; background:var(--line-soft); position:relative; overflow:hidden; }
+  .bar i{ position:absolute; inset:0 auto 0 0; background:var(--teal); width:0%; transition:width 1.4s ease; }
+
+  /* ---------- FEATURED ---------- */
+  .featured{
+    border:1px solid var(--line); background:var(--card); padding:38px clamp(20px,4vw,44px);
+  }
+  .featured .tag{
+    display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--paper); background:var(--teal-deep); padding:4px 10px; margin-bottom:16px;
+  }
+  .featured h3{ font-size:clamp(24px,3.4vw,30px); margin-bottom:14px; }
+  .featured p{ color:var(--ink-soft); max-width:70ch; }
+  .code-block{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; background:var(--ink); color:#DCE6E1;
+    padding:16px 18px; margin:22px 0; overflow-x:auto; line-height:1.7;
+  }
+  .code-block .k{ color:#9FD8C4; }
+  .img-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:24px; }
+  .img-grid figure{ margin:0; border:1px solid var(--line); background:var(--paper); padding:8px; }
+  .img-grid img{ display:block; width:100%; height:auto; }
+  .img-grid figcaption{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--ink-soft); padding:8px 4px 2px; }
+
+  /* ---------- PROJECT LEDGER ---------- */
+  .project{ padding:44px 0; border-top:1px solid var(--line-soft); }
+  .project:first-of-type{ border-top:none; padding-top:0; }
+  .project-head{ display:flex; gap:18px; align-items:baseline; flex-wrap:wrap; margin-bottom:8px; }
+  .project-head .idx{ font-family:'IBM Plex Mono', monospace; color:var(--gold); font-size:13px; }
+  .project-head .date{ font-family:'IBM Plex Mono', monospace; color:var(--ink-soft); font-size:12px; margin-left:auto; }
+  .project h3{ font-size:22px; margin-bottom:12px; }
+  .project .credit{ font-size:13px; color:var(--ink-soft); font-style:italic; margin:-6px 0 14px; }
+  .project p{ color:var(--ink-soft); max-width:72ch; margin:0 0 12px; }
+  .project .pills{ margin:14px 0 4px; }
+  .project .links{ margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:12.5px; }
+  .project .links a{ margin-right:18px; }
+  .footnote{ font-size:12.5px; color:var(--ink-soft); margin-top:16px; border-left:2px solid var(--gold); padding-left:10px; }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ border-top:1px solid var(--line); padding:56px 0 40px; }
+  footer h2{ font-size:clamp(28px,4vw,40px); max-width:16ch; }
+  footer .foot-grid{ display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-top:26px; }
+  footer .contact-link{ font-family:'IBM Plex Mono', monospace; font-size:15px; }
+  footer .meta{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--ink-soft); }
+
+  ::selection{ background:var(--gold); color:var(--ink); }
+
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--teal-deep); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <a href="#top" class="brand">Luis Felipe <span>/ Field Notes</span></a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#languages">Languages</a>
+      <a href="#featured">Featured</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>RSTUDIO <span class="dot">·</span></span>
+    <span>SNOWFLAKE <span class="dot">·</span></span>
+    <span>POWER BI <span class="dot">·</span></span>
+    <span>SAP <span class="dot">·</span></span>
+    <span>ALTERYX <span class="dot">·</span></span>
+    <span>TABLEAU <span class="dot">·</span></span>
+    <span>EXCEL <span class="dot">·</span></span>
+    <span>ACCESS <span class="dot">·</span></span>
+    <span>RSTUDIO <span class="dot">·</span></span>
+    <span>SNOWFLAKE <span class="dot">·</span></span>
+    <span>POWER BI <span class="dot">·</span></span>
+    <span>SAP <span class="dot">·</span></span>
+    <span>ALTERYX <span class="dot">·</span></span>
+    <span>TABLEAU <span class="dot">·</span></span>
+    <span>EXCEL <span class="dot">·</span></span>
+    <span>ACCESS <span class="dot">·</span></span>
+  </div>
+</div>
+
+<main id="top">
+
+  <section class="hero wrap" style="border-top:none;">
+    <div class="eyebrow">San José ⇄ Lisboa · Dispatch No. 01</div>
+    <h1>Luis Felipe</h1>
+    <div class="role">Economist &amp; Data Analyst</div>
+    <p class="lede">Two years of international experience turning raw series into ETL pipelines, dashboards and reports — with a habit of picking economic time series apart to see what's really driving them.</p>
+
+    <div class="hero-grid">
+      <div>
+        <div class="chart-card">
+          <div class="cap"><span>CRC / USD — <b>seasonal decomposition</b></span><span>15Y, via BCCR</span></div>
+          <svg id="sparkline" viewBox="0 0 560 190" width="100%" role="img" aria-label="Stylized chart of the Costa Rican Colón exchange rate, showing a declining five-year trend with seasonal peaks around October–November and troughs from December to April.">
+            <line class="grid" x1="0" y1="40" x2="560" y2="40"/>
+            <line class="grid" x1="0" y1="90" x2="560" y2="90"/>
+            <line class="grid" x1="0" y1="140" x2="560" y2="140"/>
+            <path class="line" d="M0,70 C20,60 35,48 50,44 C70,38 85,50 100,62 C120,78 135,100 150,108 C165,114 180,110 195,96 C215,78 230,58 250,50 C270,44 285,54 300,68 C320,86 335,106 350,116 C365,122 380,118 395,104 C415,86 430,66 450,58 C468,52 480,60 495,72 C512,86 525,100 540,104"/>
+            <circle class="pt" cx="540" cy="104" r="4"/>
+            <text class="tick" x="0" y="184">O</text>
+            <text class="tick" x="46" y="184">N</text>
+            <text class="tick" x="92" y="184">D</text>
+            <text class="tick" x="138" y="184">J</text>
+            <text class="tick" x="184" y="184">F</text>
+            <text class="tick" x="230" y="184">M</text>
+            <text class="tick" x="276" y="184">A</text>
+            <text class="tick" x="322" y="184">M</text>
+            <text class="tick" x="368" y="184">J</text>
+            <text class="tick" x="414" y="184">J</text>
+            <text class="tick" x="460" y="184">A</text>
+            <text class="tick" x="506" y="184">S</text>
+          </svg>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--ink-soft); font-size:14.5px; margin:0;">Appreciation typically peaks around <b style="color:var(--ink)">October–November</b>, then gives way to depreciation from <b style="color:var(--ink)">January through April</b> — read the full breakdown below.</p>
+        <p style="margin-top:14px;"><a href="#featured" class="mono" style="font-size:13px;">see the full analysis ↓</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="no mono">§ 01</span>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>Economist, graduated from the <b>University of Costa Rica</b> in February 2020 (BSc), and from <b>Nova SBE</b> in 2023 (MSc). Currently working as a Data Analyst.</p>
+        <p>Two-plus years of international experience as a data analyst, specializing in Extract–Transform–Load (ETL) processes: creating data pipelines and report/dashboard production.</p>
+      </div>
+      <dl class="vitals">
+        <dt>Education</dt>
+        <dd>BSc Economics — Universidad de Costa Rica, Feb 2020</dd>
+        <dd>MSc — Nova School of Business &amp; Economics, 2023</dd>
+        <dt>Currently</dt>
+        <dd>Data Analyst · 2+ years international experience</dd>
+        <dt>Tools</dt>
+        <dd>
+          <div class="pills">
+            <span class="pill">Snowflake</span>
+            <span class="pill">Access</span>
+            <span class="pill">RStudio</span>
+            <span class="pill">SAP</span>
+            <span class="pill">Power BI</span>
+            <span class="pill">Alteryx</span>
+            <span class="pill">Excel</span>
+            <span class="pill">Workday</span>
+            <span class="pill">Tableau</span>
+          </div>
+        </dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="languages" class="wrap">
+    <div class="section-head">
+      <h2>Languages</h2>
+      <span class="no mono">§ 02</span>
+    </div>
+    <div class="lang-list">
+      <div class="lang-row">
+        <div class="name">Spanish</div>
+        <div class="bar"><i data-fill="100"></i></div>
+        <div class="level">Native</div>
+      </div>
+      <div class="lang-row">
+        <div class="name">English</div>
+        <div class="bar"><i data-fill="95"></i></div>
+        <div class="level">C2</div>
+      </div>
+      <div class="lang-row">
+        <div class="name">Portuguese</div>
+        <div class="bar"><i data-fill="95"></i></div>
+        <div class="level">C2</div>
+      </div>
+      <div class="lang-row">
+        <div class="name">French</div>
+        <div class="bar"><i data-fill="78"></i></div>
+        <div class="level">C1</div>
+      </div>
+      <div class="lang-row">
+        <div class="name">Polish</div>
+        <div class="bar"><i data-fill="28"></i></div>
+        <div class="level">A2 · learning</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="featured" class="wrap">
+    <div class="section-head">
+      <h2>Featured Project</h2>
+      <span class="no mono">§ 03</span>
+    </div>
+    <div class="featured">
+      <span class="tag">Most recent</span>
+      <h3>Seasonality in the CRC Exchange Rate</h3>
+      <p>With the Costa Rican Colón (CRC) trading below 500 per dollar for several days running, I pulled fifteen years of data from the BCCR (Central Bank of Costa Rica) to decompose the series. Using Prophet, I extracted the underlying trend and its weekly and yearly seasonality.</p>
+      <p>The yearly component peaks around October–November, then fades through December into April — consistent with the appreciation-then-depreciation pattern the CRC has shown in recent years. The trend itself has been declining over the past five years, with a further dip visible after November once seasonal effects turn negative.</p>
+      <div class="code-block"><span class="k">library</span>(mFilter)  <span class="k">library</span>(readxl)  <span class="k">library</span>(dplyr)  <span class="k">library</span>(tidyverse)<br><span class="k">library</span>(magrittr)  <span class="k">library</span>(ggplot2)  <span class="k">library</span>(prophet)  <span class="k">library</span>(lubridate)<br><span class="k">library</span>(zoo)  <span class="k">library</span>(forecast)</div>
+      <div class="img-grid">
+        <figure>
+          <img src="https://github.com/user-attachments/assets/c5c2bcbe-e48d-44b7-a982-c344c5e3b428" alt="Trend and seasonality decomposition of the CRC/USD exchange rate" loading="lazy">
+          <figcaption>Trend + weekly/yearly decomposition, Prophet</figcaption>
+        </figure>
+        <figure>
+          <img src="https://github.com/user-attachments/assets/a9e8d693-88a5-4404-9930-c33fc5d227f8" alt="Seasonal effects on the CRC/USD exchange rate across the year" loading="lazy">
+          <figcaption>Seasonal effects across the year</figcaption>
+        </figure>
+      </div>
+      <p class="links" style="margin-top:22px;"><a href="Descomposicion_tc_copy.txt">Full code →</a></p>
+    </div>
+  </section>
+
+  <section id="projects" class="wrap">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <span class="no mono">§ 04</span>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="idx">No. 01</span>
+        <h3 style="margin:0;">Costa Rica Wine Market Dashboard — TMLCR</h3>
+        <span class="date">Most recent</span>
+      </div>
+      <p>Built a Power BI dashboard mapping the wine import market in Costa Rica, segmented by wine type, grape, country of origin and importer. Most of the work happened before a single chart went up: converting heavily raw data from <b>SISTEMA TICA</b> (Costa Rica's Ministerio de Hacienda customs system) into a structured dataset clean enough to actually drive insights.</p>
+      <p>The underlying pipeline infrastructure was built in <b>RStudio</b>. The end result is a set of views TMLCR's clients use to size the market, profile individual companies, and drill down from an importer all the way to brand-level unit pricing.</p>
+      <div class="img-grid">
+        <figure><img src="images/tmlcr-market-size.png" alt="Tamaño de Mercado view: CIF US$ by importer, units by country of origin on a map, and CIF US$ by brand" loading="lazy"><figcaption>Tamaño de Mercado — importers, origin map, brand ranking</figcaption></figure>
+        <figure><img src="images/tmlcr-company-profile.png" alt="Perfil de la Compañía view: CIF US$ and units by brand, plus units by wine sub-category" loading="lazy"><figcaption>Perfil de la Compañía — brand and sub-category breakdown</figcaption></figure>
+        <figure><img src="images/tmlcr-company-analysis.png" alt="Análisis por Empresa view: treemap of CIF US$ by type, top 20 suppliers, and CIF US$ by year" loading="lazy"><figcaption>Análisis por Empresa — type treemap, top suppliers, yearly trend</figcaption></figure>
+        <figure><img src="images/tmlcr-importer-matrix.png" alt="Matriz Importadores view: drill-down table from importer to year, type and brand with units, CIF US$ and average unit price" loading="lazy"><figcaption>Matriz Importadores — importer drill-down with unit pricing</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="idx">No. 02</span>
+        <h3 style="margin:0;">BSY Equity and Returns Dashboard</h3>
+        <span class="date">2025</span>
+      </div>
+      <p>Built a dashboard that updates automatically from Yahoo Finance data, connected into Power BI through R — no API needed for the Yahoo Finance pull.</p>
+      <div class="code-block"><span class="k">library</span>(tidyverse)  <span class="k">library</span>(magrittr)  <span class="k">library</span>(quantmod)<br>getSymbols(<span class="k">"BSY"</span>)<br>BSY_data &lt;- data.frame(Date = index(BSY), coredata(BSY))</div>
+      <p>RStudio's <code>quantmod</code>, <code>magrittr</code>, <code>tidyverse</code> and <code>lubridate</code> packages did the heavy lifting to connect the data in real time and refresh it with a single click. FRED series (e.g. US real GDP) can be pulled the same way when needed. Bookmarks and filters were added on top to make the UI easier for the end user to navigate.</p>
+      <div class="img-grid">
+        <figure><img src="https://github.com/user-attachments/assets/e3513acc-9979-496f-941c-95c8fdbf02ec" alt="BSY equity dashboard view in Power BI, first bookmark" loading="lazy"><figcaption>Power BI dashboard — bookmark view</figcaption></figure>
+        <figure><img src="https://github.com/user-attachments/assets/204f3953-229a-4208-b102-8203f3c00a19" alt="BSY equity dashboard view in Power BI, filtered view" loading="lazy"><figcaption>Power BI dashboard — filtered view</figcaption></figure>
+      </div>
+      <p class="footnote">This dashboard was built entirely with publicly available data.</p>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="idx">No. 03</span>
+        <h3 style="margin:0;">Dollarization and the Exchange Rate Pass-Through: Is There a Link?</h3>
+        <span class="date">01.07.2023 – 14.01.2024</span>
+      </div>
+      <p class="credit">Master of Science thesis</p>
+      <p>Investigated whether a country's level of deposit dollarization relates to how much exchange-rate movements pass through to inflation.</p>
+      <p>Built the dataset in R from Levy-Yeyati (2021) deposit dollarization data and the World Bank's World Development Indicators, using <code>dplyr</code>, <code>tidyquant</code>, <code>ggplot2</code>, <code>tidyverse</code>, <code>magrittr</code>, <code>writexl</code> and <code>WDI</code>, among other packages — and pulled out a handful of interesting stylized facts along the way.</p>
+      <div class="img-grid">
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/a16b0abd-f614-4089-8ab5-571afe61ae0e" alt="Change in dollarization across countries, 2000 to 2018" loading="lazy"><figcaption>Change in dollarization, 2000–2018</figcaption></figure>
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/9be94a0a-d9cc-4cf9-a2f5-6702b53a52cf" alt="Dollarization by decade" loading="lazy"><figcaption>Dollarization by decade</figcaption></figure>
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/3d413647-dac1-401c-9ac0-8c14c93e811d" alt="OLS regression output for exchange rate pass-through" loading="lazy"><figcaption>Exchange-rate pass-through, OLS</figcaption></figure>
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/7443e7cb-d843-45ff-9fcb-a0749ceacca9" alt="Histogram of pass-through coefficients by country" loading="lazy"><figcaption>Pass-through coefficients by country</figcaption></figure>
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/7a469d9f-9a05-4c2d-9ba5-51fb06fade7d" alt="Countries with the highest absolute change in dollarization" loading="lazy"><figcaption>Largest absolute change in dollarization</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="idx">No. 04</span>
+        <h3 style="margin:0;">Interest Rates, Inflation and Sovereign Debt: The Portuguese Case</h3>
+        <span class="date">01.02.2023 – 02.06.2023</span>
+      </div>
+      <p class="credit">Co-authored with Miguel Oliveira and Tiago Campos · code written independently</p>
+      <p>Used R and Gretl to build a debt-equation specification and a VAR(2) model, forecasting Portuguese public debt and computing impulse response functions against debt interest rate, GDP growth, inflation and the primary surplus.</p>
+      <p>Both models pointed the same way: Portuguese debt looks sustainable, with a declining trajectory ahead, and the IRFs traced out how debt actually reacts to each variable.</p>
+      <div class="img-grid">
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/c55dd2ba-32b0-402a-aa82-0f3d40dfbc24" alt="VAR(2) forecasts for Portuguese public debt" loading="lazy"><figcaption>VAR(2) debt forecasts</figcaption></figure>
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/82c5d9ea-597c-45ba-8b50-072bc0107a27" alt="Impulse response function, chart four" loading="lazy"><figcaption>Impulse response function</figcaption></figure>
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/a1e27894-b9a8-4851-b314-f4d814e7804e" alt="Impulse response function, chart two" loading="lazy"><figcaption>Impulse response function</figcaption></figure>
+      </div>
+      <p class="links">
+        <a href="https://github.com/lufebose/lufebose.github.io/files/12428664/Copy.Portugal.Public.Debt.R.txt">R code →</a>
+        <a href="https://github.com/lufebose/lufebose.github.io/files/12427787/Public.Debt.GPEARI.Report.-.Final.pdf">Full report (PDF) →</a>
+      </p>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <span class="idx">No. 05</span>
+        <h3 style="margin:0;">Forecasting the CRC Exchange Rate with Prophet + mFilter</h3>
+        <span class="date">21.06.2022 – 28.06.2022</span>
+      </div>
+      <p>Used Prophet to forecast the CRC/USD exchange rate — a good fit here given the series' non-linearity and heavy seasonality — then applied <code>mFilter</code> to filter the underlying time series.</p>
+      <p>The seasonality itself told a clear story: the highest-seasonality days run Wednesday through Saturday, and the highest-seasonality months are June and November.</p>
+      <div class="img-grid">
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/990573c6-8ae5-4df5-bd74-75e2b4d34f36" alt="365-day forecast of the CRC/USD exchange rate" loading="lazy"><figcaption>365-day forecast</figcaption></figure>
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/8fa69be7-b44e-4434-8ed1-0f32ab04c898" alt="Trend, weekly and yearly components of the exchange rate" loading="lazy"><figcaption>Trend / weekly / yearly components</figcaption></figure>
+        <figure><img src="https://github.com/lufebose/lufebose.github.io/assets/109878424/93812911-f126-4358-9a28-84522d964495" alt="Filtered exchange rate series using mFilter" loading="lazy"><figcaption>Filtered series, mFilter</figcaption></figure>
+      </div>
+      <p class="links"><a href="https://github.com/lufebose/lufebose.github.io/files/12428258/Copy.tc_forecast_prophet.R.txt">R code →</a></p>
+      <p class="footnote">Also available on request — felipebose18 [at] gmail.com</p>
+    </div>
+
+  </section>
+
+  <footer id="contact" class="wrap">
+    <div class="section-head" style="margin-bottom:0;">
+      <span class="no mono">§ 05</span>
+    </div>
+    <h2>Get in touch.</h2>
+    <div class="foot-grid">
+      <a class="contact-link" href="mailto:felipebose18@gmail.com">felipebose18@gmail.com</a>
+      <a class="contact-link" href="https://github.com/lufebose">github.com/lufebose</a>
+      <span class="meta">San José, Costa Rica ⇄ Lisboa, Portugal</span>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  // Animate language proficiency bars once they're in view
+  const bars = document.querySelectorAll('.bar i');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.style.width = e.target.dataset.fill + '%';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  bars.forEach(b => io.observe(b));
+</script>
+
+</body>
+</html>
