@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aquisições de nacionalidade portuguesa pelo artigo 6.7 (Judeus Sefarditas)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+<style>
+:root{--bg:#f3f6f9;--ink:#10243a;--mut:#5d6f82;--line:#d3dce6;--h:#2358a6;--m:#d38b1f;--surf:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1824;--ink:#e6edf5;--mut:#92a4b8;--line:#25384d;--h:#6f9fe6;--m:#e8a94a;--surf:#132233}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Instrument Sans',system-ui,sans-serif;padding:0 20px 48px}
+main{max-width:1100px;margin:0 auto}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:36px 0 20px;border-bottom:2px solid var(--ink)}
+h1{font:600 clamp(26px,4.5vw,42px)/1.1 Fraunces,Georgia,serif;margin:0;max-width:22ch}
+p.sub{margin:6px 0 0;color:var(--mut)}
+button,select,input{font:inherit;color:var(--ink);background:var(--surf);border:1px solid var(--line);border-radius:6px;padding:6px 10px}
+button{cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--h);outline-offset:2px}
+.bar{display:flex;flex-wrap:wrap;gap:14px;padding:16px 0}
+.bar label{display:flex;flex-direction:column;font-size:13px;color:var(--mut);gap:3px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-block:1px solid var(--line)}
+.kpi{padding:16px 16px 16px 0}
+.kpi b{display:block;font:600 34px/1.1 Fraunces,Georgia,serif}
+.kpi span{color:var(--mut);font-size:13px}
+.charts{display:grid;grid-template-columns:3fr 2fr;gap:28px;margin:28px 0}
+@media(max-width:800px){.charts{grid-template-columns:1fr}}
+h2{font:600 18px Fraunces,Georgia,serif;margin:0 0 10px}
+.cv{position:relative;height:300px}
+.tools{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.wrap{overflow-x:auto;border:1px solid var(--line);background:var(--surf);max-height:560px}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:5px 9px;text-align:right;white-space:nowrap}
+th{position:sticky;top:0;background:var(--surf);cursor:pointer;border-bottom:1px solid var(--line);user-select:none}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surf)}
+td.tot{font-weight:600}
+#msg{color:var(--mut);padding:24px 0}
+.map-section{margin:30px 0 34px}
+.map-note{margin:2px 0 0;color:var(--mut);font-size:13px}.source{margin:4px 0 0;color:var(--mut);font-size:12px}.map-year[hidden]{display:none!important}.source a{color:inherit}
+.map-controls{display:flex;gap:10px;flex-wrap:wrap}
+.map-year{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--mut)}
+.top-section{min-width:0}
+.top-list{height:300px;overflow-y:auto;border:1px solid var(--line);background:var(--surf);border-radius:8px;padding:10px 12px}
+.top-row{display:grid;grid-template-columns:minmax(150px,1fr) 1fr auto;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid var(--line);font-size:13px}
+.top-row:last-child{border-bottom:0}
+.top-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top-track{height:9px;background:var(--bg);border-radius:10px;overflow:hidden}
+.top-fill{height:100%;background:var(--h);border-radius:10px}
+.top-value{font-variant-numeric:tabular-nums;font-weight:600;min-width:70px;text-align:right}
+.table-head-tools{display:flex;align-items:end;gap:12px;flex-wrap:wrap}
+.map-controls label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--mut)}
+#map{height:520px;border:1px solid var(--line);background:var(--surf);border-radius:8px;overflow:hidden}
+#map svg{display:block;width:100%;height:100%}
+.country{stroke:var(--surf);stroke-width:.55px;cursor:pointer}
+.country:hover{stroke:var(--ink);stroke-width:1.2px}
+.map-footnote{margin:6px 0 0;color:var(--mut);font-size:12px}.map-legend{display:flex;align-items:center;gap:8px;margin-top:8px;color:var(--mut);font-size:12px}
+.map-legend i{width:180px;height:10px;border-radius:8px;background:linear-gradient(90deg,#eef4fb,#2358a6);display:block}
+.continent{margin:26px 0 0}
+.continent h3{font:600 20px Fraunces,Georgia,serif;margin:0 0 10px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.continent-card{border:1px solid var(--line);background:var(--surf);border-radius:8px;overflow:hidden}
+.continent-card .wrap{border:0;max-height:360px}
+@media(max-width:650px){#map{height:380px}}
+</style>
+
+<style id="creator-watermark-style">
+  .creator-watermark {
+    position: fixed;
+    right: 18px;
+    bottom: 12px;
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    font: 600 12px/1.2 "Instrument Sans", system-ui, sans-serif;
+    letter-spacing: .04em;
+    color: rgba(80, 90, 105, .55);
+    background: rgba(255,255,255,.72);
+    padding: 5px 8px;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+</style>
+
+</head>
+<body>
+<main>
+<header>
+  <div><h1 id="title"></h1><p class="sub" id="sub"></p><p class="source">Dados: <a href="https://www.ine.pt/" target="_blank" rel="noopener">INE.pt</a></p></div>
+  <button id="lang" aria-label="Language"></button>
+</header>
+<div id="msg"></div>
+<div id="app" hidden>
+  <div class="bar">
+    <label><span data-t="from"></span><select id="y0"></select></label>
+    <label><span data-t="to"></span><select id="y1"></select></label>
+    <label><span data-t="sex"></span><select id="sx"></select></label>
+    <label><span data-t="res"></span><select id="rs"></select></label>
+    <label><span data-t="continent"></span><select id="continentFilter"></select></label>
+  </div>
+  <div class="kpis" id="kpis"></div>
+  <div class="charts">
+    <section><h2 data-t="trend"></h2><div class="cv"><canvas id="c1"></canvas></div></section>
+    <section class="top-section">
+      <h2 data-t="top"></h2>
+      <div id="topList" class="top-list"></div>
+    </section>
+  </div>
+
+  <section>
+    <div class="tools"><h2 data-t="heat"></h2>
+      <div><input id="q" type="search" data-p="search"> <button id="csv" data-t="csv"></button></div>
+    </div>
+    <div id="continentSections"></div>
+  </section>
+
+  <section class="map-section">
+    <div class="tools">
+      <div><h2 data-t="map"></h2><p class="map-note" data-t="mapNote"></p></div>
+      <label class="map-year"><span data-t="mapMode"></span><select id="mapMode">
+        <option value="single" data-t="mapSingle"></option>
+        <option value="range" data-t="mapRange"></option>
+      </select></label>
+      <label class="map-year" id="mapSingleWrap"><span data-t="mapYear"></span><select id="mapYear"></select></label>
+      <label class="map-year" id="mapFromWrap" hidden><span data-t="mapFrom"></span><select id="mapFrom"></select></label>
+      <label class="map-year" id="mapToWrap" hidden><span data-t="mapTo"></span><select id="mapTo"></select></label>
+    </div>
+    <div id="map"></div>
+    <div class="map-legend"><span data-t="low"></span><i></i><span data-t="high"></span></div><p class="map-footnote" data-t="mapIsraelNote"></p>
+  </section>
+</div>
+</main>
+<script>
+// 1) Paste your Apps Script web app URL (ends in /exec)
+const API = "https://script.google.com/macros/s/AKfycbwRC85CF1_6bboHoECH1N8gXJboWwRSBl1f9ugMVayZgh8ID4WPBErsLNRmPbB4YwB3/exec";
+// 2) Rows in "Nacionalidade anterior" that are totals/groups and must not be summed (lowercase)
+// Rows that are NOT countries/nationalities. These are aggregate regions,
+// continental totals, EU aggregates, or grand totals and must NEVER appear
+// in the country table, TOP list, KPIs, charts, or map values.
+const AGG = [
+  "total",
+  "asia", "ásia", "africa", "áfrica", "america", "américa",
+  "europe", "europa", "oceania", "oceânia",
+  "north america", "south america",
+  "norte america", "norte américa", "sul america", "sul américa",
+  "middle east", "medio oriente", "médio oriente",
+  "uniao europeia", "união europeia", "european union",
+  "eu - 27", "ue - 27", "eu27", "ue27",
+  "extra ue", "extra eu",
+  "estrangeiro", "foreign"
+];
+
+function isAggregateName(name) {
+  const n = normalizeName(name);
+
+  // Exact aggregate labels.
+  const exact = new Set(AGG.map(normalizeName));
+  if (exact.has(n)) return true;
+
+  // EU aggregate labels such as:
+  // "Extra UE - 27 Estados-membros (a partir de 2020)"
+  // "União Europeia 27 (a partir de 2020)"
+  if (/^(extra )?(ue|eu)(\s*[-–—]?\s*\d+)?\b/.test(n)) return true;
+  if (/^(uniao europeia|european union)(\s*[-–—]?\s*\d+)?\b/.test(n)) return true;
+
+  // Any explicitly labelled regional/continental aggregate.
+  if (/^(asia|africa|america|europe|europa|oceania)(\s+total)?$/.test(n)) return true;
+  if (/^(north america|south america|norte america|sul america)$/.test(n)) return true;
+  if (/^(middle east|medio oriente|medio oriente)$/.test(n)) return true;
+
+  return false;
+}
+
+const T = {
+ pt:{title:"Aquisições de nacionalidade portuguesa",sub:"Por sexo, local de residência e nacionalidade anterior",from:"Desde",to:"Até",sex:"Sexo",res:"Residência",all:"Todos",H:"Homens",M:"Mulheres",Total:"Total",Estrangeiro:"Estrangeiro",Portugal:"Portugal",trend:"Evolução anual",top:"Principais nacionalidades anteriores",heat:"Nacionalidade × ano",csv:"Exportar CSV",search:"Procurar nacionalidade…",nat:"Nacionalidade",tot:"Total",k1:"Aquisições no período",k2:"Variação último ano",k3:"Ano de pico",k4:"Nacionalidades com registos",loading:"A carregar…",err:"Não foi possível carregar os dados. Verifique o URL do Apps Script.",map:"Mapa por país",mapNote:"A intensidade mostra o total de aquisições no ano selecionado. Passe o rato sobre um país.",mapIsraelNote:"Nota: Israel é destacado a amarelo no mapa.",mapYear:"Ano",mapMode:"Visualização",mapSingle:"Ano único",mapRange:"Intervalo de anos",mapFrom:"Desde",mapTo:"Até",continent:"Continente",low:"Menor",high:"Maior",ASIA:"ÁSIA",EUROPE:"EUROPA",AMERICA:"AMÉRICA",AFRICA:"ÁFRICA",OCEANIA:"OCEÂNIA",OTHER:"OUTROS"},
+ en:{title:"Portuguese nationality acquisitions",sub:"By sex, place of residence and previous nationality",from:"From",to:"To",sex:"Sex",res:"Residence",all:"All",H:"Men",M:"Women",Total:"Total",Estrangeiro:"Abroad",Portugal:"Portugal",trend:"Yearly trend",top:"Top previous nationalities",heat:"Nationality × year",csv:"Export CSV",search:"Search nationality…",nat:"Nationality",tot:"Total",k1:"Acquisitions in period",k2:"Last-year change",k3:"Peak year",k4:"Nationalities with records",loading:"Loading…",err:"Could not load the data. Check the Apps Script URL.",map:"Country heatmap",mapNote:"Intensity shows total acquisitions in the selected year. Hover over a country for details.",mapIsraelNote:"Note: Israel is highlighted in yellow on the map.",mapYear:"Year",mapMode:"View",mapSingle:"Single year",mapRange:"Year range",mapFrom:"From",mapTo:"To",continent:"Continent",low:"Lower",high:"Higher",ASIA:"ASIA",EUROPE:"EUROPE",AMERICA:"AMERICA",AFRICA:"AFRICA",OCEANIA:"OCEANIA",OTHER:"OTHER"}
+};
+let lang = localStorage.getItem("lang") || (navigator.language.startsWith("pt") ? "pt" : "en");
+let D, sortK = "tot", sortD = -1, ch = {}, view = [];
+const $ = id => document.getElementById(id), t = k => T[lang][k] || k;
+const fmt = n => n.toLocaleString(lang === "pt" ? "pt-PT" : "en-GB");
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+async function load() {
+  $("msg").textContent = t("loading");
+  try {
+    const j = await (await fetch(API)).json();
+    const apiYears = (j.years || [])
+      .map(Number)
+      .filter(y => Number.isInteger(y) && y >= 2016 && y <= 2025);
+
+    // Source format is:
+    // [Sexo, Residência, Nacionalidade anterior, 2016 ... 2025, ISO3]
+    // ISO3 is the LAST field. Keep this independent of any extra/null API fields.
+    D = {
+      years: apiYears,
+      rows: (j.rows || [])
+        .map(r => {
+          const yearCount = apiYears.length;
+          const iso3 = String(r[r.length - 1] ?? "").trim().toUpperCase();
+          const values = r.slice(3, 3 + yearCount).map(x => {
+            const n = typeof x === "number"
+              ? x
+              : Number(String(x ?? "").replace(/\s/g, "").replace(",", "."));
+            return Number.isFinite(n) ? n : 0;
+          });
+          return {
+            s: String(r[0] ?? "").trim(),
+            r: String(r[1] ?? "").trim(),
+            n: String(r[2] ?? "").trim(),
+            v: values,
+            iso3
+          };
+        })
+        .filter(r => !isAggregateName(r.n))
+    };
+    const ys = D.years.map(y => `<option>${y}</option>`).join("");
+    $("y0").innerHTML = ys; $("y1").innerHTML = ys;
+    $("y0").value = D.years[0]; $("y1").value = D.years.at(-1);
+    D.sexes = [...new Set(D.rows.map(r => r.s))]; D.res = [...new Set(D.rows.map(r => r.r))];
+    $("msg").hidden = true; $("app").hidden = false;
+    labels(); initMapControls(); render();
+  } catch (e) { $("msg").textContent = t("err"); }
+}
+
+function labels() {
+  document.documentElement.lang = lang;
+  $("title").textContent = t("title"); $("sub").textContent = t("sub");
+  $("lang").textContent = lang === "pt" ? "EN" : "PT";
+  document.title = t("title");
+  document.querySelectorAll("[data-t]").forEach(e => e.textContent = t(e.dataset.t));
+  $("q").placeholder = t("search");
+  if (!D) return;
+  const sx = $("sx").value || "all", rs = $("rs").value || (D.res.includes("Total") ? "Total" : D.res[0]);
+  const continent = $("continentFilter")?.value || "ALL";
+  $("sx").innerHTML = `<option value="all">${t("all")}</option>` + D.sexes.map(s => `<option value="${s}">${t(s)}</option>`).join("");
+  $("rs").innerHTML = D.res.map(s => `<option value="${s}">${t(s)}</option>`).join("");
+  $("sx").value = sx; $("rs").value = rs;
+  if ($("continentFilter")) {
+    $("continentFilter").innerHTML = `<option value="ALL">${t("all")}</option>` +
+      ["ASIA","EUROPE","AMERICA","AFRICA","OCEANIA","OTHER"].map(c => `<option value="${c}">${t(c)}</option>`).join("");
+    $("continentFilter").value = continent;
+  }
+}
+
+function render() {
+  const y0 = +$("y0").value, y1 = +$("y1").value, sx = $("sx").value, rs = $("rs").value;
+  const ys = D.years.filter(y => y >= y0 && y <= y1), ix = ys.map(y => D.years.indexOf(y));
+  const continent = $("continentFilter").value || "ALL";
+  // Global continent filter: it affects KPIs, yearly trend, Top nationalities and table.
+  const rows = D.rows.filter(r =>
+    r.r === rs &&
+    (sx === "all" || r.s === sx) &&
+    (continent === "ALL" || continentOf(r.n) === continent)
+  );
+  const bs = {}, nat = {};
+  D.sexes.forEach(s => bs[s] = ys.map(() => 0));
+  rows.forEach(r => {
+    nat[r.n] ??= ys.map(() => 0);
+    ix.forEach((j, k) => { bs[r.s][k] += r.v[j]; nat[r.n][k] += r.v[j]; });
+  });
+  const tot = ys.map((_, k) => D.sexes.reduce((a, s) => a + bs[s][k], 0));
+  const sum = a => a.reduce((x, y) => x + y, 0);
+  const n = tot.length, last = tot[n - 1], prev = tot[n - 2];
+  const chg = prev ? ((last - prev) / prev * 100) : null;
+  const peak = ys[tot.indexOf(Math.max(...tot))];
+  const list = Object.entries(nat)
+    .map(([k, v]) => ({ n: k, v, tot: sum(v) }))
+    .filter(e => e.tot > 0 && !isAggregateName(e.n));
+  $("kpis").innerHTML = [[t("k1"), fmt(sum(tot))],
+    [t("k2") + (n > 1 ? ` (${ys[n - 1]})` : ""), chg === null ? "–" : (chg > 0 ? "+" : "") + chg.toFixed(1).replace(".", lang === "pt" ? "," : ".") + "%"],
+    [t("k3"), peak], [t("k4"), fmt(list.length)]]
+    .map(([l, v]) => `<div class="kpi"><b>${v}</b><span>${l}</span></div>`).join("");
+
+  Chart.defaults.color = css("--mut"); Chart.defaults.font.family = "Instrument Sans, system-ui, sans-serif";
+  const grid = { color: css("--line") };
+  ch.a?.destroy();
+  const col = { H: css("--h"), M: css("--m") };
+  ch.a = new Chart($("c1"), { type: "bar",
+    data: { labels: ys, datasets: D.sexes.map(s => ({ label: t(s), data: bs[s], backgroundColor: col[s] || "#888" })) },
+    options: { maintainAspectRatio: false, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, grid } } } });
+  // Top nationalities is a scrollable ranking, so the user can browse beyond the first 10.
+  const top = [...list].sort((a, b) => b.tot - a.tot);
+  const topMax = Math.max(1, ...top.map(e => e.tot));
+  $("topList").innerHTML = top.length ? top.map((e, i) => `
+    <div class="top-row">
+      <div class="top-name">${i + 1}. ${e.n}</div>
+      <div class="top-track"><div class="top-fill" style="width:${Math.max(1, e.tot / topMax * 100)}%"></div></div>
+      <div class="top-value">${fmt(e.tot)}</div>
+    </div>`).join("") : `<div class="empty">${t("err")}</div>`;
+
+  view = { ys, list, continent }; table();
+}
+
+function table() {
+  const { ys, list, continent } = view;
+  const q = $("q").value.toLowerCase();
+
+  const filtered = list
+    .filter(e => !isAggregateName(e.n))
+    .filter(e => e.n.toLowerCase().includes(q))
+    .sort((a, b) =>
+      sortK === "n" ? sortD * -a.n.localeCompare(b.n) :
+      sortD * ((sortK === "tot" ? a.tot : a.v[sortK]) - (sortK === "tot" ? b.tot : b.v[sortK])));
+
+  const max = Math.max(1, ...list.flatMap(e => e.v));
+  const filterLabel = continent === "ALL" ? t("all") : t(continent);
+  if ($("tableFilterLabel")) $("tableFilterLabel").textContent = `${t("continent")}: ${filterLabel}`;
+  const heat = v => v ? `style="background:color-mix(in srgb,${css("--h")} ${Math.round(Math.sqrt(v / max) * 80)}%,transparent)"` : "";
+
+  $("continentSections").innerHTML = `<div class="continent-card"><div class="wrap">
+    <table id="tb"><thead><tr>
+      <th data-k="n">${t("nat")}</th>
+      ${ys.map((y,i)=>`<th data-k="${i}">${y}</th>`).join("")}
+      <th data-k="tot">${t("tot")}</th>
+    </tr></thead>
+    <tbody>
+      ${filtered.map(e => `<tr><td>${e.n}</td>${e.v.map(v=>`<td ${heat(v)}>${fmt(v)}</td>`).join("")}<td class="tot">${fmt(e.tot)}</td></tr>`).join("")}
+    </tbody></table>
+  </div></div>`;
+
+  view.rows = filtered;
+
+  document.querySelectorAll("#tb th[data-k]").forEach(th => {
+    th.addEventListener("click", () => {
+      const k = th.dataset.k === "n" || th.dataset.k === "tot" ? th.dataset.k : +th.dataset.k;
+      sortD = sortK === k ? -sortD : -1;
+      sortK = k;
+      table();
+    });
+  });
+
+  renderMap();
+}
+
+const CONTINENT_GROUPS = {
+  // Portuguese names from the API + common English/international variants.
+  ASIA: [
+    "Irão (República Islâmica do)","Sri Lanca","Cazaquistão","Território Palestiniano Ocupado","República Árabe Síria",
+    "Israel","Turquia","Turkey","Türkiye","Iraque","Iraq","Irão","Iran",
+    "Síria","Syria","Líbano","Lebanon","Jordânia","Jordan","Índia","India",
+    "Paquistão","Pakistan","Afeganistão","Afghanistan","Arménia","Armenia",
+    "Azerbaijão","Azerbaijan","Geórgia","Georgia","Chipre","Cyprus",
+    "China","Japão","Japan","Coreia do Sul","South Korea","Coreia","Korea",
+    "Filipinas","Philippines","Singapura","Singapore","Indonésia","Indonesia",
+    "Tailândia","Thailand","Vietname","Vietnam","Malásia","Malaysia",
+    "Rússia","Russia"
+  ],
+  EUROPE: [
+    "Reino Unido da Grã-Bretanha e Irlanda do Norte","Federação da Rússia","Macedónia do Norte","Bósnia-Herzegovina","Países Baixos (Reino dos)",
+    "Portugal",
+    "Espanha","Spain",
+    "França","France",
+    "Itália","Italy",
+    "Alemanha","Germany",
+    "Bélgica","Belgium",
+    "Países Baixos","Netherlands","Holanda",
+    "Luxemburgo","Luxembourg",
+    "Suíça","Switzerland",
+    "Áustria","Austria",
+    "Reino Unido","United Kingdom","UK",
+    "Irlanda","Ireland",
+    "Polónia","Poland",
+    "República Checa","Czech Republic","Chéquia","Czechia",
+    "Hungria","Hungary",
+    "Roménia","Romania",
+    "Bulgária","Bulgaria",
+    "Grécia","Greece",
+    "Croácia","Croatia",
+    "Sérvia","Servia","Serbia",
+    "Bósnia e Herzegovina","Bosnia and Herzegovina",
+    "Eslovénia","Slovenia",
+    "Eslováquia","Slovakia",
+    "Ucrânia","Ukraine",
+    "Bielorrússia","Belarus",
+    "Moldávia","Moldova",
+    "Dinamarca","Denmark",
+    "Suécia","Sweden",
+    "Noruega","Norway",
+    "Finlândia","Finland",
+    "Islândia","Iceland",
+    "Estónia","Estonia",
+    "Letónia","Latvia",
+    "Lituânia","Lithuania",
+    "Malta",
+    "Mónaco","Monaco",
+    "Andorra",
+    "Liechtenstein",
+    "San Marino",
+    "Vaticano","Vatican City"
+  ],
+  AMERICA: [
+    "Venezuela (República Bolivariana da)","Bolívia (Estado Plurinacional da)","Domínica","Belize","São Cristóvão e Neves","Granada","Haiti",
+    "Estados Unidos","Estados Unidos da América","United States","USA",
+    "Canadá","Canada",
+    "México","Mexico",
+    "Brasil","Brazil",
+    "Argentina",
+    "Chile",
+    "Uruguai","Uruguay",
+    "Paraguai","Paraguay",
+    "Bolívia","Bolivia",
+    "Peru",
+    "Colômbia","Colombia",
+    "Venezuela",
+    "Equador","Ecuador",
+    "Panamá","Panama",
+    "Costa Rica",
+    "Cuba",
+    "República Dominicana","Dominican Republic",
+    "Porto Rico","Puerto Rico",
+    "Honduras",
+    "Guatemala",
+    "Nicarágua","Nicaragua",
+    "El Salvador",
+    "Jamaica",
+    "Trindade e Tobago","Trinidad and Tobago"
+  ],
+  AFRICA: [
+    "Burundi","Egito",
+    "África do Sul","South Africa",
+    "Angola",
+    "Moçambique","Mozambique",
+    "Cabo Verde","Cape Verde",
+    "Guiné-Bissau","Guinea-Bissau",
+    "Senegal",
+    "Gana","Ghana",
+    "Nigéria","Nigeria",
+    "Camarões","Cameroon",
+    "Quénia","Kenya",
+    "Etiópia","Ethiopia",
+    "Tanzânia","Tanzania",
+    "Zimbabué","Zimbabwe",
+    "Namíbia","Namibia",
+    "Marrocos","Morocco",
+    "Tunísia","Tunisia",
+    "Argélia","Algeria",
+    "Egipto","Egypt",
+    "Líbia","Libya"
+  ],
+  OCEANIA: [
+    "Austrália","Australia",
+    "Nova Zelândia","New Zealand",
+    "Fiji",
+    "Papua-Nova Guiné","Papua New Guinea"
+  ]
+};
+
+function normalizeName(s) {
+  return String(s || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ");
+}
+function continentOf(name) {
+  if (isAggregateName(name)) return "OTHER";
+  const n = normalizeName(name);
+  for (const [c, arr] of Object.entries(CONTINENT_GROUPS)) {
+    if (arr.some(x => normalizeName(x) === n)) return c;
+  }
+  return "OTHER";
+}
+
+async function renderMap() {
+  const mapEl = $("map");
+  if (!mapEl || !D?.rows?.length) return;
+
+  const mode = $("mapMode").value || "single";
+  const mapYears = D.years.slice(0, 10);
+
+  const fromRaw = mode === "single" ? $("mapYear").value : $("mapFrom").value;
+  const toRaw   = mode === "single" ? $("mapYear").value : $("mapTo").value;
+  const fromYear = Number(fromRaw);
+  const toYear   = Number(toRaw);
+
+  if (!Number.isFinite(fromYear) || !Number.isFinite(toYear)) return;
+
+  const lo = Math.min(fromYear, toYear);
+  const hi = Math.max(fromYear, toYear);
+
+  // Map follows Sex + Residence filters.
+  // Continent is deliberately NOT applied to the map.
+  const sx = $("sx").value || "all";
+  const rs = $("rs").value || (D.res.includes("Total") ? "Total" : D.res[0]);
+
+  // ISO3 is the primary key. Name aliases are only a safety fallback
+  // for rows coming from an older API deployment without ISO3.
+  const normalizeMapName = value => String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[’']/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const nameToISO3 = {
+    "africa do sul":"ZAF","africa do sul (republica da)":"ZAF",
+    "albania":"ALB","alemanha":"DEU","angola":"AGO","argelia":"DZA",
+    "argentina":"ARG","armenia":"ARM","australia":"AUS","austria":"AUT",
+    "azerbaijao":"AZE","bahamas":"BHS","bahrein":"BHR","bangladeche":"BGD",
+    "barbados":"BRB","belgica":"BEL","belize":"BLZ","benim":"BEN",
+    "bielorrussia":"BLR","bolivia (estado plurinacional da)":"BOL",
+    "bosnia-herzegovina":"BIH","botsuana":"BWA","brasil":"BRA",
+    "brunei darussalam":"BRN","bulgaria":"BGR","burkina faso":"BFA",
+    "burquina faso":"BFA","burundi":"BDI","butao":"BTN","cabo verde":"CPV",
+    "camaroes":"CMR","canada":"CAN","catar":"QAT","cazaquistao":"KAZ",
+    "chile":"CHL","china":"CHN","chipre":"CYP","colombia":"COL",
+    "coreia (republica da)":"KOR",
+    "coreia (republica popular democratica da)":"PRK",
+    "costa rica":"CRI","croacia":"HRV","cuba":"CUB","dinamarca":"DNK",
+    "dominica":"DMA","egito":"EGY","emirados arabes unidos":"ARE",
+    "equador":"ECU","eslovaquia":"SVK","eslovenia":"SVN","espanha":"ESP",
+    "estados unidos da america":"USA","estonia":"EST","etiopia":"ETH",
+    "filipinas":"PHL","finlandia":"FIN","franca":"FRA","gabao":"GAB",
+    "gambia":"GMB","georgia":"GEO","gana":"GHA","grecia":"GRC",
+    "guatemala":"GTM","guiana":"GUY","guine":"GIN","guine-bissau":"GNB",
+    "haiti":"HTI","honduras":"HND","hungria":"HUN","india":"IND",
+    "indonesia":"IDN","ira":"IRN","iraque":"IRQ","irlanda":"IRL",
+    "islandia":"ISL","israel":"ISR","italia":"ITA","jamaica":"JAM",
+    "japao":"JPN","jordania":"JOR","kuwait":"KWT","laos":"LAO",
+    "letonia":"LVA","libano":"LBN","liberia":"LBR","libia":"LBY",
+    "listenstaine":"LIE","lituania":"LTU","luxemburgo":"LUX",
+    "macedonia do norte":"MKD","madagascar":"MDG","malasia":"MYS",
+    "malaui":"MWI","maldivas":"MDV","mali":"MLI","malta":"MLT",
+    "marrocos":"MAR","mauricia":"MUS","mauritania":"MRT","mexico":"MEX",
+    "moldavia (republica da)":"MDA","monaco":"MCO","mongolia":"MNG",
+    "montenegro":"MNE","mocambique":"MOZ","namibia":"NAM","nepal":"NPL",
+    "nicaragua":"NIC","niger":"NER","nigeria":"NGA","noruega":"NOR",
+    "nova zelandia":"NZL","oman":"OMN","paises baixos":"NLD",
+    "paises baixos (reino dos)":"NLD","paquistao":"PAK","panama":"PAN",
+    "paraguai":"PRY","peru":"PER","polonia":"POL","portugal":"PRT",
+    "republica checa":"CZE","republica dominicana":"DOM","romenia":"ROU",
+    "russia":"RUS","federacao da russia":"RUS","servia":"SRB","singapura":"SGP",
+    "sri lanca":"LKA","sudao":"SDN","suecia":"SWE","suica":"CHE",
+    "suriname":"SUR","tailandia":"THA","taiwan":"TWN","tanzania":"TZA",
+    "timor-leste":"TLS","tunisia":"TUN","turquia":"TUR","ucrania":"UKR",
+    "uganda":"UGA","uruguai":"URY","uzbequistao":"UZB","venezuela":"VEN",
+    "venezuela (republica bolivariana da)":"VEN","vietname":"VNM",
+    "zambia":"ZMB","zimbabue":"ZWE",
+    "reino unido da gra-bretanha e irlanda do norte":"GBR",
+    "reino unido (british subject)":"GBR",
+    "kosovo":"XKX"
+  };
+
+  const isoForRow = r => {
+    const direct = String(r.iso3 || "").trim().toUpperCase();
+    if (/^[A-Z]{3}$/.test(direct)) return direct;
+    return nameToISO3[normalizeMapName(r.n)] || "";
+  };
+
+  const values = {};
+  let mappedRows = 0;
+
+  D.rows.forEach(r => {
+    if (r.r !== rs || (sx !== "all" && r.s !== sx)) return;
+
+    const code = isoForRow(r);
+    if (!code) return;
+
+    mappedRows++;
+    if (!values[code]) values[code] = Object.fromEntries(mapYears.map(y => [y, 0]));
+
+    mapYears.forEach((y, i) => {
+      if (y < lo || y > hi) return;
+      const num = Number(r.v[i]);
+      if (Number.isFinite(num)) values[code][y] += num;
+    });
+  });
+
+  // ISO numeric IDs used by world-atlas countries-110m.
+  const numericToISO3 = {
+    "004":"AFG","008":"ALB","012":"DZA","020":"AND","024":"AGO","028":"ATG","031":"AZE",
+    "032":"ARG","036":"AUS","040":"AUT","044":"BHS","048":"BHR","050":"BGD","051":"ARM",
+    "052":"BRB","056":"BEL","060":"BMU","064":"BTN","068":"BOL","070":"BIH","072":"BWA",
+    "076":"BRA","084":"BLZ","090":"SLB","096":"BRN","100":"BGR","104":"MMR","108":"BDI",
+    "112":"BLR","116":"KHM","120":"CMR","124":"CAN","132":"CPV","136":"CYM","140":"CAF",
+    "144":"LKA","148":"TCD","152":"CHL","156":"CHN","158":"TWN","170":"COL","174":"COM",
+    "175":"MYT","178":"COG","180":"COD","184":"COK","188":"CRI","191":"HRV","192":"CUB",
+    "196":"CYP","203":"CZE","204":"BEN","208":"DNK","212":"DMA","214":"DOM","218":"ECU",
+    "222":"SLV","226":"GNQ","231":"ETH","232":"ERI","233":"EST","242":"FJI","246":"FIN",
+    "250":"FRA","254":"GUF","258":"PYF","262":"DJI","266":"GAB","268":"GEO","270":"GMB",
+    "275":"PSE","276":"DEU","288":"GHA","292":"GIB","296":"KIR","300":"GRC","308":"GRD",
+    "320":"GTM","324":"GIN","328":"GUY","332":"HTI","336":"VAT","340":"HND","348":"HUN",
+    "352":"ISL","356":"IND","360":"IDN","364":"IRN","368":"IRQ","372":"IRL","376":"ISR",
+    "380":"ITA","384":"CIV","388":"JAM","392":"JPN","398":"KAZ","400":"JOR","404":"KEN",
+    "408":"PRK","410":"KOR","414":"KWT","417":"KGZ","418":"LAO","422":"LBN","426":"LSO",
+    "428":"LVA","430":"LBR","434":"LBY","438":"LIE","440":"LTU","442":"LUX","450":"MDG",
+    "454":"MWI","458":"MYS","462":"MDV","466":"MLI","470":"MLT","478":"MRT","480":"MUS",
+    "484":"MEX","492":"MCO","496":"MNG","498":"MDA","499":"MNE","504":"MAR","508":"MOZ",
+    "512":"OMN","516":"NAM","520":"NRU","524":"NPL","528":"NLD","554":"NZL","558":"NIC",
+    "562":"NER","566":"NGA","570":"NIU","578":"NOR","583":"FSM","584":"MHL","585":"PLW",
+    "586":"PAK","591":"PAN","598":"PNG","600":"PRY","604":"PER","608":"PHL","616":"POL",
+    "620":"PRT","624":"GNB","626":"TLS","630":"PRI","634":"QAT","638":"REU","642":"ROU",
+    "643":"RUS","646":"RWA","659":"KNA","662":"LCA","666":"MAF","670":"VCT","674":"SMR",
+    "678":"STP","682":"SAU","686":"SEN","688":"SRB","690":"SYC","694":"SLE","702":"SGP",
+    "703":"SVK","705":"SVN","706":"SOM","710":"ZAF","716":"ZWE","724":"ESP","728":"SSD",
+    "729":"SDN","740":"SUR","748":"SWZ","752":"SWE","756":"CHE","760":"SYR","762":"TJK",
+    "764":"THA","768":"TGO","776":"TON","780":"TTO","784":"ARE","788":"TUN","792":"TUR",
+    "795":"TKM","798":"TUV","800":"UGA","804":"UKR","807":"MKD","818":"EGY","826":"GBR",
+    "834":"TZA","840":"USA","548":"VUT","858":"URY","860":"UZB","862":"VEN","876":"WLF",
+    "882":"WSM","887":"YEM","894":"ZMB","383":"XKX"
+  };
+
+  const valueForISO3 = iso3 => {
+    const code = String(iso3 || "").toUpperCase();
+    return mapYears
+      .filter(y => y >= lo && y <= hi)
+      .reduce((sum, y) => sum + (values[code]?.[y] || 0), 0);
+  };
+
+  mapEl.innerHTML = "";
+  const width = mapEl.clientWidth || 900;
+  const height = mapEl.clientHeight || 520;
+  const svg = d3.select(mapEl).append("svg")
+    .attr("viewBox", `0 0 ${width} ${height}`);
+
+  try {
+    const world = await (await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")).json();
+    const features = topojson.feature(world, world.objects.countries).features;
+    const featureISO3 = f => numericToISO3[String(f.id).padStart(3, "0")] || "";
+
+    const featureValues = features
+      .map(f => featureISO3(f))
+      .filter(iso3 => iso3 && iso3 !== "ISR")
+      .map(iso3 => valueForISO3(iso3))
+      .filter(v => Number.isFinite(v) && v > 0);
+
+    const max = Math.max(1, ...featureValues);
+
+    const color = d3.scaleSequential(
+      d3.interpolateRgb("#eef4fb", css("--h"))
+    ).domain([0, Math.log1p(max)]);
+
+    const colorForValue = v => {
+      const n = Number(v) || 0;
+      return n > 0 ? color(Math.log1p(n)) : css("--line");
+    };
+
+    svg.append("g")
+      .selectAll("path")
+      .data(features)
+      .join("path")
+      .attr("class", "country")
+      .attr("d", d3.geoPath(d3.geoNaturalEarth1().fitSize([width, height], {type:"Sphere"})))
+      .attr("fill", f => {
+        const iso3 = featureISO3(f);
+        if (iso3 === "ISR") return "#FFD400";
+        return colorForValue(valueForISO3(iso3));
+      })
+      .append("title")
+      .text(f => {
+        const iso3 = featureISO3(f);
+        const label = mode === "single" ? `${lo}` : `${lo}-${hi}`;
+        return `${f.properties.name} [${iso3 || "—"}] (${label}): ${fmt(valueForISO3(iso3))}`;
+      });
+
+    // If the API/filter produced no usable map rows, show a clear diagnostic
+    // without breaking the dashboard.
+    if (mappedRows === 0) {
+      mapEl.insertAdjacentHTML("beforeend",
+        `<div style="position:absolute;inset:10px auto auto 10px;background:rgba(255,255,255,.92);padding:6px 9px;border:1px solid ${css("--line")};border-radius:6px;font-size:12px;color:${css("--mut")}">No ISO3 rows matched the current Sex/Residence filters.</div>`
+      );
+    }
+  } catch (e) {
+    console.error("Map error:", e);
+    mapEl.innerHTML = `<div class="empty">${t("err")}</div>`;
+  }
+}
+
+function updateMapMode() {
+  const range = $("mapMode").value === "range";
+
+  // Single-year mode: show ONLY "Ano".
+  // Range mode: show ONLY "Desde" and "Até".
+  $("mapSingleWrap").hidden = range;
+  $("mapFromWrap").hidden = !range;
+  $("mapToWrap").hidden = !range;
+
+  $("mapYear").disabled = range;
+  $("mapFrom").disabled = !range;
+  $("mapTo").disabled = !range;
+
+  if (range && +$("mapFrom").value > +$("mapTo").value) {
+    $("mapTo").value = $("mapFrom").value;
+  }
+  renderMap();
+}
+
+function initMapControls() {
+  // MAP ONLY: the selectors must contain real year values only.
+  // Never expose null/undefined/non-year values returned by the API.
+  const mapYears = D.years.slice(0, 10);
+
+  if (!mapYears.length) {
+    $("map").innerHTML = `<div class="empty">${t("err")}</div>`;
+    return;
+  }
+
+  const opts = mapYears.map(y => `<option value="${y}">${y}</option>`).join("");
+  $("mapYear").innerHTML = opts;
+  $("mapFrom").innerHTML = opts;
+  $("mapTo").innerHTML = opts;
+
+  $("mapYear").value = String(mapYears[mapYears.length - 1]);
+  $("mapFrom").value = String(mapYears[0]);
+  $("mapTo").value = String(mapYears[mapYears.length - 1]);
+
+  $("mapMode").addEventListener("change", updateMapMode);
+  updateMapMode();
+  $("mapYear").addEventListener("change", renderMap);
+  $("mapFrom").addEventListener("change", renderMap);
+  $("mapTo").addEventListener("change", renderMap);
+}
+
+
+["y0", "y1", "sx", "rs"].forEach(id => $(id).addEventListener("change", render));
+$("q").addEventListener("input", table);
+$("continentFilter").addEventListener("change", render);
+$("lang").addEventListener("click", () => { lang = lang === "pt" ? "en" : "pt"; localStorage.setItem("lang", lang); labels(); D ? render() : 0; });
+$("csv").addEventListener("click", () => {
+  const { ys, rows } = view;
+  const csv = [[t("nat"), ...ys, t("tot")], ...rows.map(e => [`"${e.n}"`, ...e.v, e.tot])].map(r => r.join(",")).join("\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["\ufeff" + csv], { type: "text/csv" })); a.download = "nacionalidade.csv"; a.click();
+});
+labels(); load();
+</script>
+<div class="creator-watermark">Created by lufebose</div>
+</body>
+</html>
